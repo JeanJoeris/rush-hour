@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,27 +10,58 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823211316) do
+ActiveRecord::Schema.define(version: 20160823225538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "ips", force: :cascade do |t|
+    t.string   "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payload_requests", force: :cascade do |t|
     t.datetime "requested_at"
     t.integer  "responded_in"
-    t.string   "referred_by"
-    t.string   "request_type"
-    t.text     "user_agent"
-    t.string   "resolution_width"
-    t.string   "resolution_height"
-    t.string   "ip"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
     t.integer  "url_id"
+    t.integer  "ip_id"
+    t.integer  "referrer_id"
+    t.integer  "user_agent_id"
+    t.integer  "screen_resolution_id"
+    t.integer  "request_type_id"
+  end
+
+  create_table "referrers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "request_types", force: :cascade do |t|
+    t.string   "http_verb"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "screen_resolutions", force: :cascade do |t|
+    t.string   "width"
+    t.string   "height"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "urls", force: :cascade do |t|
     t.string   "url_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_agents", force: :cascade do |t|
+    t.string   "os"
+    t.string   "browser"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
