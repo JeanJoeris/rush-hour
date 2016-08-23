@@ -13,3 +13,9 @@ require 'database_cleaner'
 
 DatabaseCleaner.strategy = :truncation
 Capybara.app = RushHour::Server
+
+module TestHelpers
+  def setup
+    DatabaseCleaner.clean
+  end
+end

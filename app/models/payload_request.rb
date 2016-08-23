@@ -8,4 +8,8 @@ class PayloadRequest < ActiveRecord::Base
   validates :resolution_width, presence: true
   validates :resolution_height, presence: true
   validates :ip, presence: true
+
+  def self.format_and_create(data)
+    #format the data
+    self.create(data)
 end

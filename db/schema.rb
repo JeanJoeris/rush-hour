@@ -11,13 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823191617) do
+ActiveRecord::Schema.define(version: 20160823211316) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "payload_requests", force: :cascade do |t|
-    t.string   "url"
     t.datetime "requested_at"
     t.integer  "responded_in"
     t.string   "referred_by"
@@ -28,6 +27,13 @@ ActiveRecord::Schema.define(version: 20160823191617) do
     t.string   "ip"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.integer  "url_id"
+  end
+
+  create_table "urls", force: :cascade do |t|
+    t.string   "url_path"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -1,6 +1,5 @@
 require_relative '../test_helper'
-
-class PayloadRequestTable < Minitest::Test
+class PaylodJsonTest
   include TestHelpers
 
   def payload
@@ -21,21 +20,8 @@ class PayloadRequestTable < Minitest::Test
     JSON.parse(payload)
   end
 
-
-
-  def test_payload_request_object_has_attributes
-    db_payload = PayloadRequest.create(parsed_payload)
-
-    assert_equal parsed_payload["url"], db_payload["url"]
-    assert_equal parsed_payload["request_type"], db_payload["request_type"]
-    assert_equal parsed_payload["ip"], db_payload["ip"]
-  end
-
-  def test_it_requires_all_fields
-    PayloadRequest.create({"url" => "a url"})
-    assert_equal 0, PayloadRequest.all.count
-
-    PayloadRequest.create(parsed_payload)
-    assert_equal 1, PayloadRequest.all.count
+  def test_parse_payload_request
+    assert_equal 9, parsed_payload.keys.count
+    assert_equal "http://jumpstartlab.com/blog", parsed_payload["url"]
   end
 end
