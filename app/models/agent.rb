@@ -1,4 +1,4 @@
-class UserAgent < ActiveRecord::Base
+class Agent < ActiveRecord::Base
   has_many :payload_requests
 
   validates :os, presence: true
