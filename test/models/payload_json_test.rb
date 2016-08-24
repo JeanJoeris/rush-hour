@@ -1,5 +1,5 @@
 require_relative '../test_helper'
-class PaylodJsonTest
+class PaylodJsonTest < Minitest::Test
   include TestHelpers
 
   def payload

@@ -3,39 +3,33 @@ require_relative '../test_helper'
 class PayloadRequestTable < Minitest::Test
   include TestHelpers
 
-  def payload
-    '{
-      "url":"http://jumpstartlab.com/blog",
-      "requested_at":"2013-02-16 21:38:28 -0700",
-      "responded_in":37,
-      "referred_by":"http://jumpstartlab.com",
-      "request_type":"GET",
-      "user_agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-      "resolution_width":"1920",
-      "resolution_height":"1280",
-      "ip":"63.29.38.211"
-    }'
+  def create_payload_request
+    payload = {
+      "requested_at" => DateTime.now,
+      "responded_in" => 37,
+      "ip_id" => 4,
+      "url_id" => 3,
+      "referrer_id" => 6,
+      "user_agent_id" => 20,
+      "screen_resolution_id" => 7,
+      "request_type_id" => 1
+    }
+    PayloadRequest.create(payload)
   end
-
-  def parsed_payload
-    JSON.parse(payload)
-  end
-
-
 
   def test_payload_request_object_has_attributes
-    db_payload = PayloadRequest.create(parsed_payload)
+    db_payload = create_payload_request
 
-    assert_equal parsed_payload["url"], db_payload["url"]
-    assert_equal parsed_payload["request_type"], db_payload["request_type"]
-    assert_equal parsed_payload["ip"], db_payload["ip"]
+    assert_equal 3, db_payload["url_id"]
+    assert_equal 1, db_payload["request_type_id"]
+    assert_equal 4, db_payload["ip_id"]
   end
 
   def test_it_requires_all_fields
-    PayloadRequest.create({"url" => "a url"})
+    PayloadRequest.create({"url_id" => 4})
     assert_equal 0, PayloadRequest.all.count
 
-    PayloadRequest.create(parsed_payload)
+    create_payload_request
     assert_equal 1, PayloadRequest.all.count
   end
 end
