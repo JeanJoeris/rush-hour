@@ -10,7 +10,7 @@ class PayloadRequestTest < Minitest::Test
       "ip_id" => 1,
       "url_id" => 1,
       "referrer_id" => 1,
-      "user_agent_id" => 1,
+      "agent_id" => 1,
       "screen_resolution_id" => 1,
       "request_type_id" => 1
     }
@@ -55,9 +55,9 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_that_payload_requests_connects_to_user_agent_table
-    user_agent = UserAgent.create( "os"=>"Intel Mac OS X 10_8_2", "browser"=> "Chrome/24.0.1309.0" )
+    agent = Agent.create( "os"=>"Intel Mac OS X 10_8_2", "browser"=> "Chrome/24.0.1309.0" )
     payload = create_payload_request
-    assert_equal user_agent, payload.user_agent
+    assert_equal agent, payload.agent
   end
 
   def test_that_payload_requests_connects_to_screen_resolution_table

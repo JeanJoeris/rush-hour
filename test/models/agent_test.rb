@@ -5,7 +5,7 @@ class UserAgentsTable < Minitest::Test
 
   def create_params
     params = {"os"=>"Intel Mac OS X 10_8_2", "browser"=> "Chrome/24.0.1309.0"}
-    UserAgent.create(params)
+    Agent.create(params)
   end
 
   def test_params_request_object_has_attributes
@@ -16,14 +16,14 @@ class UserAgentsTable < Minitest::Test
   end
 
   def test_only_valid_entries_are_entered
-    UserAgent.create({})
-    assert_equal 0, UserAgent.all.count
+    Agent.create({})
+    assert_equal 0, Agent.all.count
 
-    UserAgent.create({"os"=>"Intel Mac OS X 10_8_2", "browser"=> "Chrome/24.0.1309.0"})
-    assert_equal 1, UserAgent.all.count
+    Agent.create({"os"=>"Intel Mac OS X 10_8_2", "browser"=> "Chrome/24.0.1309.0"})
+    assert_equal 1, Agent.all.count
   end
 
-  def test_user_agent_table_connects_to_payload_table
+  def test_agent_table_connects_to_payload_table
     user_agent = create_params
 
     payload_params =
@@ -33,7 +33,7 @@ class UserAgentsTable < Minitest::Test
       "ip_id" => 1,
       "url_id" => 1,
       "referrer_id" => 1,
-      "user_agent_id" => 1,
+      "agent_id" => 1,
       "screen_resolution_id" => 1,
       "request_type_id" => 1
     }
