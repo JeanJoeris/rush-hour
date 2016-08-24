@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160823225538) do
+ActiveRecord::Schema.define(version: 20160824012236) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160823225538) do
     t.datetime "updated_at",           null: false
     t.integer  "url_id"
     t.integer  "ip_id"
-    t.integer  "referrer_id"
+    t.integer  "referred_by_url_id"
     t.integer  "user_agent_id"
     t.integer  "screen_resolution_id"
     t.integer  "request_type_id"
