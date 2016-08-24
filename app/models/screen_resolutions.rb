@@ -1,4 +1,5 @@
-class ScreenResolutions < ActiveRecord::Base
+class ScreenResolution < ActiveRecord::Base
+  has_many :payload_requests
 
   validates :width, presence: true
   validates :height, presence: true
