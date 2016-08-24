@@ -72,6 +72,63 @@ class PayloadRequestTest < Minitest::Test
     assert_equal request_type, payload.request_type
   end
 
+  def test_that_it_calculates_the_average_response_time
+    payload_data_1 = get_payload_data
+    payload_data_1["responded_in"] = 10
+    payload_data_2 = get_payload_data
+    payload_data_2["responded_in"] = 20
+    payload_data_3 = get_payload_data
+    payload_data_3["responded_in"] = 30
 
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+
+    assert_equal 20, PayloadRequest.average_response_time
+  end
+
+  def test_that_min_calculates_the_minimum_response_time
+    payload_data_1 = get_payload_data
+    payload_data_1["responded_in"] = 10
+    payload_data_2 = get_payload_data
+    payload_data_2["responded_in"] = 20
+    payload_data_3 = get_payload_data
+    payload_data_3["responded_in"] = 30
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+
+    assert_equal 10, PayloadRequest.min_response_time
+  end
+
+  def test_that_max_calculates_the_maximum_response_time
+    payload_data_1 = get_payload_data
+    payload_data_1["responded_in"] = 10
+    payload_data_2 = get_payload_data
+    payload_data_2["responded_in"] = 20
+    payload_data_3 = get_payload_data
+    payload_data_3["responded_in"] = 30
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+
+    assert_equal 30, PayloadRequest.max_response_time
+  end
+
+  def test_find_most_used_reqest_type_with_most_used_request_type_method
+    payload_data_1 = get_payload_data
+    payload_data_1["request_type_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["request_type_id"] = 2
+
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+
+    assert_equal 1, PayloadRequest.most_used_request_type
+  end
 
 end

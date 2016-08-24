@@ -14,4 +14,20 @@ class PayloadRequest < ActiveRecord::Base
   validates :agent_id, presence: true
   validates :screen_resolution_id, presence: true
   validates :request_type_id, presence: true
+
+  def self.average_response_time
+    average(:responded_in)
+  end
+
+  def self.min_response_time
+    minimum(:responded_in)
+  end
+
+  def self.max_response_time
+    maximum(:responded_in)
+  end
+
+  def most_used_reqest_type
+    group()
+  end
 end

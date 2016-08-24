@@ -17,4 +17,17 @@ module TestHelpers
   def setup
     DatabaseCleaner.clean
   end
+
+  def get_payload_data
+    {
+      "requested_at" => DateTime.now,
+      "responded_in" => 1,
+      "ip_id" => 1,
+      "url_id" => 1,
+      "referrer_id" => 1,
+      "agent_id" => 1,
+      "screen_resolution_id" => 1,
+      "request_type_id" => 1
+    }
+  end
 end
