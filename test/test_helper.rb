@@ -30,4 +30,12 @@ module TestHelpers
       "request_type_id" => 1
     }
   end
+
+  def populate_request_types_table
+    RequestType.create(http_verb: "GET")
+    RequestType.create(http_verb: "POST")
+    RequestType.create(http_verb: "PUT")
+    RequestType.create(http_verb: "PATCH")
+    RequestType.create(http_verb: "DELETE")
+  end
 end

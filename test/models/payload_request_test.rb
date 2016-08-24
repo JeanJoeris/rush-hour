@@ -118,17 +118,25 @@ class PayloadRequestTest < Minitest::Test
   end
 
   def test_find_most_used_reqest_type_with_most_used_request_type_method
+    populate_request_types_table
+
     payload_data_1 = get_payload_data
     payload_data_1["request_type_id"] = 1
     payload_data_2 = get_payload_data
     payload_data_2["request_type_id"] = 2
-
+    payload_data_3 = get_payload_data
+    payload_data_3["request_type_id"] = 3
 
     PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_2)
+    assert_equal "GET", PayloadRequest.most_used_request_type
 
-    assert_equal 1, PayloadRequest.most_used_request_type
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
+    assert_equal "PUT", PayloadRequest.most_used_request_type
   end
 
 end

@@ -27,7 +27,8 @@ class PayloadRequest < ActiveRecord::Base
     maximum(:responded_in)
   end
 
-  def most_used_reqest_type
-    group()
+  def self.most_used_request_type
+    id = group(:request_type_id).count.max_by{ |k,v| v }.first
+    RequestType.find(id).http_verb
   end
 end
