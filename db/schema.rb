@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(version: 20160824204914) do
     t.datetime "updated_at",           null: false
     t.integer  "url_id"
     t.integer  "ip_id"
-    t.integer  "referral_url_id"
+    t.integer  "referrer_id"
     t.integer  "agent_id"
     t.integer  "screen_resolution_id"
     t.integer  "request_type_id"
