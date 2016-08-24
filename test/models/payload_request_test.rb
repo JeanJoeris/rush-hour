@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class PayloadRequestTable < Minitest::Test
+class PayloadRequestTest < Minitest::Test
   include TestHelpers
 
   def create_payload_request
