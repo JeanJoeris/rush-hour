@@ -5,7 +5,7 @@ class ScreenResolutionsTest < Minitest::Test
 
   def create_params
     params = {"height"=> "1280", "width"=> "960"}
-    ScreenResolutions.create(params)
+    ScreenResolution.create(params)
   end
 
 
@@ -17,11 +17,31 @@ class ScreenResolutionsTest < Minitest::Test
   end
 
   def test_it_requires_all_fields
-    ScreenResolutions.create({"height" => "1280"})
-    assert_equal 0, ScreenResolutions.all.count
+    ScreenResolution.create({"height" => "1280"})
+    assert_equal 0, ScreenResolution.all.count
 
-    ScreenResolutions.create({"height" => "1280", "width" => "960"})
-    assert_equal 1, ScreenResolutions.all.count
+    ScreenResolution.create({"height" => "1280", "width" => "960"})
+    assert_equal 1, ScreenResolution.all.count
+  end
+
+  def test_screen_resolution_table_connects_to_payload_table
+    screen_resolution = create_params
+
+    payload_params =
+    {
+      "requested_at" => DateTime.now,
+      "responded_in" => 37,
+      "ip_id" => 1,
+      "url_id" => 1,
+      "referrer_id" => 1,
+      "user_agent_id" => 1,
+      "screen_resolution_id" => 1,
+      "request_type_id" => 1
+    }
+
+    payload = PayloadRequest.create(payload_params)
+
+    assert_equal payload, screen_resolution.payload_requests.first
   end
 
 end

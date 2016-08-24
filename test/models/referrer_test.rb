@@ -1,29 +1,29 @@
 require_relative '../test_helper'
 
-class RequestTypesTest < Minitest::Test
+class ReferrersTest < Minitest::Test
   include TestHelpers
 
   def create_params
-    params = {"http_verb" => "GET"}
-    RequestType.create(params)
+    params = {"name" => "Google"}
+    Referrer.create(params)
   end
 
   def test_params_request_object_has_attributes
     db_params = create_params
 
-    assert_equal "GET", db_params["http_verb"]
+    assert_equal "Google", db_params["name"]
   end
 
   def test_it_requires_all_fields
-    RequestType.create({})
-    assert_equal 0, RequestType.all.count
+    Referrer.create({})
+    assert_equal 0, Referrer.all.count
 
-    RequestType.create({"http_verb" => "GET"})
-    assert_equal 1, RequestType.all.count
+    create_params
+    assert_equal 1, Referrer.all.count
   end
 
-  def test_request_type_table_connects_to_payload_table
-    request_type = create_params
+  def test_referrer_table_connects_to_payload_table
+    referrer = create_params
 
     payload_params =
     {
@@ -39,7 +39,7 @@ class RequestTypesTest < Minitest::Test
 
     payload = PayloadRequest.create(payload_params)
 
-    assert_equal payload, request_type.payload_requests.first
+    assert_equal payload, referrer.payload_requests.first
   end
 
 end

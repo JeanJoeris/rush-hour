@@ -41,4 +41,37 @@ class PayloadRequestTest < Minitest::Test
     payload = create_payload_request
     assert_equal ip, payload.ip
   end
+
+  def test_that_payload_requests_connects_to_url_table
+    url = Url.create( "url_path"=>"http://www.google.com" )
+    payload = create_payload_request
+    assert_equal url, payload.url
+  end
+
+  def test_that_payload_requests_connects_to_referrer_table
+    referrer = Referrer.create( "name" => "http://www.google.com" )
+    payload = create_payload_request
+    assert_equal referrer, payload.referrer
+  end
+
+  def test_that_payload_requests_connects_to_user_agent_table
+    user_agent = UserAgent.create( "os"=>"Intel Mac OS X 10_8_2", "browser"=> "Chrome/24.0.1309.0" )
+    payload = create_payload_request
+    assert_equal user_agent, payload.user_agent
+  end
+
+  def test_that_payload_requests_connects_to_screen_resolution_table
+    screen_resolution = ScreenResolution.create( "height"=> "1280", "width"=> "960" )
+    payload = create_payload_request
+    assert_equal screen_resolution, payload.screen_resolution
+  end
+
+  def test_that_payload_requests_connects_to_request_type_table
+    request_type = RequestType.create( "http_verb" => "GET" )
+    payload = create_payload_request
+    assert_equal request_type, payload.request_type
+  end
+
+
+
 end
