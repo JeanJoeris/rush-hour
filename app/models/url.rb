@@ -3,4 +3,7 @@ class Url < ActiveRecord::Base
 
   validates :url_path, presence: true
 
+  def min_response_time
+    payload_requests.min_response_time
+  end
 end

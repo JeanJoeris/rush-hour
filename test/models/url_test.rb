@@ -42,4 +42,28 @@ class UrlsTest < Minitest::Test
     assert_equal payload, url.payload_requests.first
   end
 
+  def test_that_min_response_time_of_payload_requests_is_calculated
+    payload_data_1 = get_payload_data
+    payload_data_1["responded_in"] = 10
+    payload_data_1["url_id"] = 2
+    payload_data_2 = get_payload_data
+    payload_data_2["responded_in"] = 20
+    payload_data_2["url_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["responded_in"] = 30
+    payload_data_3["url_id"] = 2
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+
+    params = {"url_path"=>"http://www.google.com"}
+
+    url_data_1 = create_params
+    url_data_2 = create_params
+
+    assert_equal 10, url_data_2.min_response_time
+  end
+
+  
 end
