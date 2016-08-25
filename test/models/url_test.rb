@@ -108,4 +108,21 @@ class UrlsTest < Minitest::Test
 
     assert_equal [3, 4, 1], url_data_1.most_popular
   end
+
+  def test_average_response_time_test_the_average_response_time_for_this_url
+    payload_data_1 = get_payload_data
+    payload_data_1["responded_in"] = 10
+    payload_data_2 = get_payload_data
+    payload_data_2["responded_in"] = 20
+    payload_data_3 = get_payload_data
+    payload_data_3["responded_in"] = 30
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+
+    url_data_1 = create_params
+
+    assert_equal 20, url_data_1.average_response_time
+  end
 end

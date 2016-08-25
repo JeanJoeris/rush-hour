@@ -14,4 +14,8 @@ class Url < ActiveRecord::Base
   def most_popular
     payload_requests.group(:referrer_id).order('count(*) DESC').limit(3).count.keys
   end
+
+  def average_response_time
+    payload_requests.average_response_time
+  end
 end
