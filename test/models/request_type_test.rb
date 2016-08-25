@@ -42,12 +42,4 @@ class RequestTypesTest < Minitest::Test
     assert_equal payload, request_type.payload_requests.first
   end
 
-  def test_it_finds_all_http_verbs
-    RequestType.create(http_verb: "GET")
-    RequestType.create(http_verb: "PUT")
-    RequestType.create(http_verb: "DELETE")
-
-    assert_equal ["GET", "PUT", "DELETE"], RequestType.all_http_verbs_used
-  end
-
 end

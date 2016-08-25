@@ -43,24 +43,4 @@ class UserAgentsTable < Minitest::Test
     assert_equal payload, user_agent.payload_requests.first
   end
 
-  def test_it_finds_all_browsers
-    Agent.create(os: "OSX", browser: "Chrome")
-    Agent.create(os: "Windows", browser: "Chrome")
-    Agent.create(os: "OSX", browser: "Chrome")
-    Agent.create(os: "Windows", browser: "Internet Explorer")
-    Agent.create(os: "Windows", browser: "Firefox")
-
-    assert_equal ["Chrome", "Chrome", "Internet Explorer", "Firfox"], Agent.finds_all_browsers
-  end
-
-  def test_it_finds_all_browsers
-    Agent.create(os: "OSX", browser: "Chrome")
-    Agent.create(os: "Windows", browser: "Chrome")
-    Agent.create(os: "OSX", browser: "Chrome")
-    Agent.create(os: "Windows", browser: "Internet Explorer")
-    Agent.create(os: "Windows", browser: "Firefox")
-
-    assert_equal ["OSX", "Windows"], Agent.finds_all_os
-  end
-
 end
