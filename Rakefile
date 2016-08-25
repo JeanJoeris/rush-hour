@@ -4,11 +4,25 @@ Bundler.require
 require "sinatra/activerecord/rake"
 require 'rake/testtask'
 
-desc "run all tests"
-task :test do
-  Dir.glob('./test/*/*_test.rb') { |file| require file }
-end
+namespace :test do
+  desc "run all tests"
+  task :all do
+    Dir.glob('./test/*/*_test.rb') { |file| require file }
+  end
 
+  desc "run all model tests"
+  task :models do
+    Dir.glob('./test/models/*_test.rb') { |file| require file }
+  end
+  desc "run all controller tests"
+  task :controllers do
+    Dir.glob('./test/controllers/*_test.rb') { |file| require file }
+  end
+  desc "run all view tests"
+  task :views do
+    Dir.glob('./test/views/*_test.rb') { |file| require file }
+  end
+end
 
 namespace :sanitation do
   desc "Check line lengths & whitespace with Cane"
