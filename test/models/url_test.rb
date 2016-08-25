@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class UrlsTest < Minitest::Test
+class UrlTest < Minitest::Test
   include TestHelpers
 
   def create_params
@@ -41,5 +41,4 @@ class UrlsTest < Minitest::Test
 
     assert_equal payload, url.payload_requests.first
   end
-
 end
