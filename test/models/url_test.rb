@@ -64,8 +64,7 @@ class UrlsTest < Minitest::Test
   end
 
   def test_a_list_of_response_time_across_all_requests_listed_from_longest_to_shortest
-  # A list of response times across all
-  # requests listed from longest response time to shortest response time.
+    #don't know whether to join the string or leave a array
   payload_data_1 = get_payload_data
   payload_data_1["responded_in"] = 10
   payload_data_2 = get_payload_data
@@ -82,5 +81,31 @@ class UrlsTest < Minitest::Test
   assert_equal [30, 20, 10], url_data_1.response_times
   end
 
-  
+  def test_most_popular_finds_the_three_most_popular_referrers
+    #lowest referrer id wins ties
+    #left in an array
+    payload_data_1 = get_payload_data
+    payload_data_1["referrer_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["referrer_id"] = 3
+    payload_data_3 = get_payload_data
+    payload_data_3["referrer_id"] = 3
+    payload_data_4 = get_payload_data
+    payload_data_4["referrer_id"] = 2
+    payload_data_5 = get_payload_data
+    payload_data_5["referrer_id"] = 4
+    payload_data_6 = get_payload_data
+    payload_data_6["referrer_id"] = 4
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_4)
+    PayloadRequest.create(payload_data_5)
+    PayloadRequest.create(payload_data_6)
+
+    url_data_1 = create_params
+
+    assert_equal [3, 4, 1], url_data_1.most_popular
+  end
 end

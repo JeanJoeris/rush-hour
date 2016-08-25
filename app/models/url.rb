@@ -10,4 +10,8 @@ class Url < ActiveRecord::Base
   def response_times
     payload_requests.map { |pl| pl.responded_in }.sort.reverse
   end
+
+  def most_popular
+    payload_requests.group(:referrer_id).order('count(*) DESC').limit(3).count.keys
+  end
 end
