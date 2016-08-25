@@ -58,4 +58,11 @@ module TestHelpers
     ScreenResolution.create(height: "1100", width: "2100")
     ScreenResolution.create(height: "1500", width: "2600")
   end
+
+  def populate_referrer_table
+    Referrer.create("name" => "http://.google.com")
+    Referrer.create("name" => "http://.reddit.com")
+    Referrer.create("name" => "http://.yahoo.com")
+    Referrer.create("name" => "http://.aol.com")
+  end
 end
