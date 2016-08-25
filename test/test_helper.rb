@@ -33,7 +33,8 @@ module TestHelpers
       "referrer_id" => 1,
       "agent_id" => 1,
       "screen_resolution_id" => 1,
-      "request_type_id" => 1
+      "request_type_id" => 1,
+      "client_id" => 1
     }
   end
 
@@ -71,6 +72,5 @@ module TestHelpers
     Referrer.create("name" => "http://.yahoo.com")
     Referrer.create("name" => "http://.aol.com")
   end
-
 
 end

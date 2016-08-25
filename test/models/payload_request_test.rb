@@ -4,16 +4,7 @@ class PayloadRequestTest < Minitest::Test
   include TestHelpers
 
   def payload
-    {
-      "requested_at" => DateTime.now,
-      "responded_in" => 37,
-      "ip_id" => 1,
-      "url_id" => 1,
-      "referrer_id" => 1,
-      "agent_id" => 1,
-      "screen_resolution_id" => 1,
-      "request_type_id" => 1
-    }
+    get_payload_data
   end
 
   def create_payload_request(data = payload)

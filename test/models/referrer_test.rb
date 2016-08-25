@@ -25,19 +25,7 @@ class ReferrersTest < Minitest::Test
   def test_referrer_table_connects_to_payload_table
     referrer = create_params
 
-    payload_params =
-    {
-      "requested_at" => DateTime.now,
-      "responded_in" => 37,
-      "ip_id" => 1,
-      "url_id" => 1,
-      "referrer_id" => 1,
-      "agent_id" => 1,
-      "screen_resolution_id" => 1,
-      "request_type_id" => 1
-    }
-
-    payload = PayloadRequest.create(payload_params)
+    payload = PayloadRequest.create(get_payload_data)
 
     assert_equal payload, referrer.payload_requests.first
   end
