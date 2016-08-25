@@ -51,9 +51,11 @@ class UrlTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["responded_in"] = 200
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload(
+                  [ payload_data_1,
+                    payload_data_2,
+                    payload_data_3 ]
+                  )
 
     url = Url.create(url_path: "http://www.google.com")
 
@@ -90,9 +92,11 @@ class UrlTest < Minitest::Test
     payload_data_3["responded_in"] = 30
     payload_data_3["url_id"] = 2
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload(
+                  [ payload_data_1,
+                    payload_data_2,
+                    payload_data_3 ]
+                  )
 
     url_data_1 = create_params
     url_data_2 = create_params
@@ -110,9 +114,11 @@ class UrlTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["request_type_id"] = 3
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload(
+                  [ payload_data_1,
+                    payload_data_2,
+                    payload_data_3 ]
+                  )
 
     google = create_params
 
@@ -131,9 +137,11 @@ class UrlTest < Minitest::Test
     payload_data_3["request_type_id"] = 3
     payload_data_3["url_id"] = 2
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload(
+                  [ payload_data_1,
+                    payload_data_2,
+                    payload_data_3 ]
+                  )
 
     google = create_params
     reddit = Url.create(url_path: "http://reddit.com")
@@ -149,9 +157,15 @@ class UrlTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["responded_in"] = 30
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload(
+                  [ payload_data_1,
+                    payload_data_2,
+                    payload_data_3 ]
+                  )
+
+    # PayloadRequest.create(payload_data_1)
+    # PayloadRequest.create(payload_data_2)
+    # PayloadRequest.create(payload_data_3)
 
     url_data_1 = create_params
 
@@ -168,18 +182,30 @@ class UrlTest < Minitest::Test
     payload_data_4 = get_payload_data
     payload_data_4["referrer_id"] = 4
 
+    create_payload(
+                  [ payload_data_1,
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_4,
+                    payload_data_4,
+                    payload_data_4]
+                  )
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_4)
-    PayloadRequest.create(payload_data_4)
-    PayloadRequest.create(payload_data_4)
-
+    # PayloadRequest.create(payload_data_1)
+    # PayloadRequest.create(payload_data_1)
+    # PayloadRequest.create(payload_data_2)
+    # PayloadRequest.create(payload_data_3)
+    # PayloadRequest.create(payload_data_3)
+    # PayloadRequest.create(payload_data_3)
+    # PayloadRequest.create(payload_data_3)
+    # PayloadRequest.create(payload_data_4)
+    # PayloadRequest.create(payload_data_4)
+    # PayloadRequest.create(payload_data_4)
+    #
 
     url_data_1 = create_params
 
@@ -197,9 +223,11 @@ class UrlTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["responded_in"] = 30
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload(
+                  [ payload_data_1,
+                    payload_data_2,
+                    payload_data_3 ]
+                  )
 
     url_data_1 = create_params
 

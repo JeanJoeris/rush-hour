@@ -18,6 +18,12 @@ module TestHelpers
     DatabaseCleaner.clean
   end
 
+  def create_payload(*args)
+    args.each do |arg|
+      PayloadRequest.create(arg)
+    end
+  end
+
   def get_payload_data
     {
       "requested_at" => DateTime.now,
@@ -65,4 +71,6 @@ module TestHelpers
     Referrer.create("name" => "http://.yahoo.com")
     Referrer.create("name" => "http://.aol.com")
   end
+
+
 end
