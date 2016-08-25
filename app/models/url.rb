@@ -8,7 +8,7 @@ class Url < ActiveRecord::Base
   end
 
   def http_verbs
-    RequestType.where(id: payload_requests.select("request_type_id")).pluck(:http_verb)
+    payload_requests.all_http_verbs
   end
 
   def top_agents(number = 3)
