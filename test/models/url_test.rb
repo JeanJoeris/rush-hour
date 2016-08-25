@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class UrlsTest < Minitest::Test
+class UrlTest < Minitest::Test
   include TestHelpers
 
   def create_params
@@ -149,5 +149,4 @@ class UrlsTest < Minitest::Test
     assert_equal agent_3.id, top_agents[1].id
     assert_equal agent_2.id, top_agents.last.id
   end
-
 end
