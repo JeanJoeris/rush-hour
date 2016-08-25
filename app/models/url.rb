@@ -8,13 +8,12 @@ class Url < ActiveRecord::Base
   end
 
   def http_verbs
-    request_types = payload_requests.select("request_type_id")
-    request_types.map do |request_type|
-      RequestType.find(request_type.request_type_id).http_verb
-    end
+    RequestType.where(id: payload_requests.select("request_type_id")).pluck(:http_verb)
   end
 
   def top_agents(number = 3)
+    # Agent.where(id: payload_requests.group(:agent_id).order('count_id DESC').limit(number).count(:id).keys)
+
     top_agent_ids = payload_requests.group(:agent_id).order('count_id DESC').limit(number).count(:id)
     top_agent_ids.map do |agent_id, count|
       Agent.find(agent_id)

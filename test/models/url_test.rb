@@ -93,7 +93,7 @@ class UrlsTest < Minitest::Test
 
     google = create_params
 
-    assert_equal ["GET", "POST", "PUT"], google.http_verbs
+    assert_equal ["GET", "POST", "PUT"], google.http_verbs.sort
   end
 
   def test_url_only_find_verbs_associated_with_it
