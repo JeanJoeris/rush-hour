@@ -6,4 +6,8 @@ class Url < ActiveRecord::Base
   def min_response_time
     payload_requests.min_response_time
   end
+
+  def response_times
+    payload_requests.map { |pl| pl.responded_in }.sort.reverse
+  end
 end

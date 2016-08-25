@@ -57,12 +57,29 @@ class UrlsTest < Minitest::Test
     PayloadRequest.create(payload_data_2)
     PayloadRequest.create(payload_data_3)
 
-    params = {"url_path"=>"http://www.google.com"}
-
     url_data_1 = create_params
     url_data_2 = create_params
 
     assert_equal 10, url_data_2.min_response_time
+  end
+
+  def test_a_list_of_response_time_across_all_requests_listed_from_longest_to_shortest
+  # A list of response times across all
+  # requests listed from longest response time to shortest response time.
+  payload_data_1 = get_payload_data
+  payload_data_1["responded_in"] = 10
+  payload_data_2 = get_payload_data
+  payload_data_2["responded_in"] = 20
+  payload_data_3 = get_payload_data
+  payload_data_3["responded_in"] = 30
+
+  PayloadRequest.create(payload_data_1)
+  PayloadRequest.create(payload_data_2)
+  PayloadRequest.create(payload_data_3)
+
+  url_data_1 = create_params
+
+  assert_equal [30, 20, 10], url_data_1.response_times
   end
 
   
