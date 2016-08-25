@@ -224,6 +224,6 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_2)
     PayloadRequest.create(payload_data_3)
 
-    assert_equal "", PayloadRequest.get_screen_resolution
+    assert_equal ["2000 x 1000", "2500 x 1500", "2100 x 1100"], PayloadRequest.get_screen_resolution
   end
 end

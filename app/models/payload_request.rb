@@ -63,7 +63,8 @@ class PayloadRequest < ActiveRecord::Base
   def self.get_screen_resolution
     screen_resolution = pluck(:screen_resolution_id).uniq
     screen_resolution.map do |id|
-      "#{ScreenResolution.find(id).width} X #{ScreenResolution.find(id).height}"
+      "#{ScreenResolution.find(id).width} x #{ScreenResolution.find(id).height}"
+    end
   end
 
 end
