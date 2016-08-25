@@ -41,16 +41,4 @@ class UrlTest < Minitest::Test
 
     assert_equal payload, url.payload_requests.first
   end
-
-  def test_it_finds_all_urls
-    Url.create("url_path"=>"HTTP://www.google.com")
-    Url.create("url_path"=>"HTTP://www.reddit.com")
-    Url.create("url_path"=>"HTTP://www.reddit.com")
-    Url.create("url_path"=>"HTTP://www.vwvortex.com")
-    Url.create("url_path"=>"HTTP://www.vxvortex.com")
-    Url.create("url_path"=>"HTTP://www.reddit.com")
-
-    assert_equal 1, Url.ordered_urls
-  end
-
 end

@@ -139,8 +139,91 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "PUT", PayloadRequest.most_used_request_type
   end
 
-  def test_it_returns_all_screen_resolutions
+  def test_it_finds_all_http_verbs
+    populate_request_types_table
 
+    payload_data_1 = get_payload_data
+    payload_data_1["request_type_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["request_type_id"] = 5
+    payload_data_3 = get_payload_data
+    payload_data_3["request_type_id"] = 3
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+
+    assert_equal ["GET", "DELETE", "PUT"], PayloadRequest.all_http_verbs
   end
 
+  def test_ordered_urls_from_most_requested_to_least
+    populate_url_table
+
+    payload_data_1 = get_payload_data
+    payload_data_1["url_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["url_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["url_id"] = 3
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+    assert_equal ["http://www.reddit.com", "http://www.google.com", "http://www.yahoo.com"], PayloadRequest.ordered_url_paths
+  end
+
+  def test_browser_breakdown_find_all_browsers_with_count
+    populate_agent_table
+
+    payload_data_1 = get_payload_data
+    payload_data_1["agent_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["agent_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["agent_id"] = 3
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
+
+    assert_equal ["IEewwwww: 2", "Firefox: 1", "Chrome: 1"], PayloadRequest.browser_breakdown
+  end
+
+  def test_os_breakdown_find_all_browsers_with_count
+    populate_agent_table
+
+    payload_data_1 = get_payload_data
+    payload_data_1["agent_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["agent_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["agent_id"] = 3
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
+
+    assert_equal ["Microsoft Windows 10: 2", "Intel Mac OS X 10_8_2: 1", "Intel Mac OS X 10_8_2: 1"], PayloadRequest.os_breakdown
+  end
+
+  def test_get_screen_resolution_with_width_and_height
+    populate_screen_resoultion_table
+
+    payload_data_1 = get_payload_data
+    payload_data_1["screen_resolution_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["screen_resolution_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["screen_resolution_id"] = 3
+
+    PayloadRequest.create(payload_data_1)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
+
+    assert_equal "", PayloadRequest.get_screen_resolution
+  end
 end

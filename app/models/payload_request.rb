@@ -31,4 +31,38 @@ class PayloadRequest < ActiveRecord::Base
     id = group(:request_type_id).count.max_by{ |k,v| v }.first
     RequestType.find(id).http_verb
   end
+
+  def self.all_http_verbs
+    ids = pluck(:request_type_id).uniq
+    ids.map {|id| RequestType.find(id).http_verb}
+  end
+
+  def self.ordered_urls
+    url_ids = group(:url_id).order('count(*) DESC').count.keys
+    url_ids.map{|id| Url.find(id)}
+  end
+
+  def self.ordered_url_paths
+    ordered_urls.map{|url| url.url_path}
+  end
+
+  def self.browser_breakdown
+    counted_agent_ids = group(:agent_id).order('count(*) DESC').count
+    counted_agent_ids.map do |agent_id, count|
+      "#{Agent.find(agent_id).browser}: #{count}"
+    end
+  end
+
+  def self.os_breakdown
+    counted_agent_ids = group(:agent_id).order('count(*) DESC').count
+    counted_agent_ids.map do |agent_id, count|
+      "#{Agent.find(agent_id).os}: #{count}"
+    end
+  end
+
+  def self.get_screen_resolution
+    ids = pluck(:screen_resolution_id).uniq
+    ids.map {|id| ScreenResolution.find(id).http_verb}
+  end
+
 end
