@@ -14,4 +14,11 @@ class Url < ActiveRecord::Base
     end
   end
 
+  def top_agents(number = 3)
+    top_agent_ids = payload_requests.group(:agent_id).order('count_id DESC').limit(number).count(:id)
+    top_agent_ids.map do |agent_id, count|
+      Agent.find(agent_id)
+    end
+  end
+
 end

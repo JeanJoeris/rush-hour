@@ -96,7 +96,7 @@ class UrlsTest < Minitest::Test
     assert_equal ["GET", "POST", "PUT"], google.http_verbs
   end
 
-  def test_url_does_not_find_verbs_not_associated_with_it
+  def test_url_only_find_verbs_associated_with_it
     populate_request_types_table
 
     payload_data_1 = get_payload_data
@@ -114,8 +114,40 @@ class UrlsTest < Minitest::Test
 
     google = create_params
     reddit = Url.create(url_path: "http://reddit.com")
-    
+
     assert_equal ["GET", "POST"], google.http_verbs
+  end
+
+  def test_url_finds_top_user_agents
+    populate_request_types_table
+
+    payload_data_1 = get_payload_data
+
+    payload_data_2 = get_payload_data
+    payload_data_2["agent_id"] = 2
+
+    payload_data_3 = get_payload_data
+    payload_data_3["agent_id"] = 3
+    payloads = [
+      payload_data_1,
+      payload_data_1,
+      payload_data_1,
+      payload_data_2,
+      payload_data_3,
+      payload_data_3
+    ]
+    payloads.each do |data|
+      PayloadRequest.create(data)
+    end
+    test_url = create_params
+    agent_1 = Agent.create(os: "Intel Mac OS X 10_8_2", browser: "Chrome")
+    agent_2 = Agent.create(os: "Microsoft Windows 10", browser: "IEewwwww")
+    agent_3 = Agent.create(os: "Debian Redhat version x.x", browser: "Chromium")
+
+    top_agents = test_url.top_agents
+    assert_equal agent_1.id, top_agents.first.id
+    assert_equal agent_3.id, top_agents[1].id
+    assert_equal agent_2.id, top_agents.last.id
   end
 
 end
