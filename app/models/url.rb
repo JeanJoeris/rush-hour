@@ -8,11 +8,16 @@ class Url < ActiveRecord::Base
   end
 
   def response_times
-    payload_requests.map { |pl| pl.responded_in }.sort.reverse
+    payload_requests.order(responded_in: :desc).pluck(:responded_in)
   end
 
-  def most_popular
-    payload_requests.group(:referrer_id).order('count(*) DESC').limit(3).count.keys
+  def top_referrers(number = 3)
+    referrer_ids = payload_requests.group(:referrer_id).order('count(*) DESC').limit(number).count.keys
+    referrer_ids.map { |id| Referrer.find(id) }
+  end
+
+  def top_referrer_paths(number = 3)
+    top_referrers(number).map { |referrer| referrer.name }
   end
 
   def average_response_time

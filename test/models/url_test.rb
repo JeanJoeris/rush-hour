@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class UrlsTest < Minitest::Test
+class UrlTest < Minitest::Test
   include TestHelpers
 
   def create_params
@@ -64,7 +64,6 @@ class UrlsTest < Minitest::Test
   end
 
   def test_a_list_of_response_time_across_all_requests_listed_from_longest_to_shortest
-    #don't know whether to join the string or leave a array
   payload_data_1 = get_payload_data
   payload_data_1["responded_in"] = 10
   payload_data_2 = get_payload_data
@@ -82,31 +81,34 @@ class UrlsTest < Minitest::Test
   end
 
   def test_most_popular_finds_the_three_most_popular_referrers
-    #lowest referrer id wins ties
-    #left in an array
     payload_data_1 = get_payload_data
     payload_data_1["referrer_id"] = 1
     payload_data_2 = get_payload_data
-    payload_data_2["referrer_id"] = 3
+    payload_data_2["referrer_id"] = 2
     payload_data_3 = get_payload_data
     payload_data_3["referrer_id"] = 3
     payload_data_4 = get_payload_data
-    payload_data_4["referrer_id"] = 2
-    payload_data_5 = get_payload_data
-    payload_data_5["referrer_id"] = 4
-    payload_data_6 = get_payload_data
-    payload_data_6["referrer_id"] = 4
+    payload_data_4["referrer_id"] = 4
 
+
+    PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_2)
     PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_4)
-    PayloadRequest.create(payload_data_5)
-    PayloadRequest.create(payload_data_6)
+    PayloadRequest.create(payload_data_4)
+    PayloadRequest.create(payload_data_4)
+
 
     url_data_1 = create_params
 
-    assert_equal [3, 4, 1], url_data_1.most_popular
+    populate_referrer_table
+
+    assert_equal ["http://.yahoo.com", "http://.aol.com", "http://.google.com"], url_data_1.top_referrer_paths
+
   end
 
   def test_average_response_time_test_the_average_response_time_for_this_url
