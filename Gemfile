@@ -8,6 +8,7 @@ gem 'rake'
 gem 'useragent'
 gem 'cane'
 gem 'reek'
+gem 'table_print'
 
 group :development, :test do
   gem 'shotgun'

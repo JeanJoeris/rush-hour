@@ -48,4 +48,21 @@ class ClientTable < Minitest::Test
     assert_equal 3, client.urls.count
   end
 
+  def test_ips_can_be_accessed_through_client_class
+    payload_data_1 = get_payload_data
+    payload_data_1["url_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["url_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["url_id"] = 3
+
+    create_payload([payload_data_1, payload_data_2, payload_data_3])
+
+    client = get_client
+    populate_url_table
+
+    assert_equal Url, client.urls.first.class
+    assert_equal 3, client.urls.count
+  end
+
 end

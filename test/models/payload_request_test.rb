@@ -127,6 +127,7 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
+    require "pry"; binding.pry
     assert_equal "PUT", PayloadRequest.most_used_request_type
   end
 

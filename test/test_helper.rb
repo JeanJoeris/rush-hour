@@ -73,4 +73,10 @@ module TestHelpers
     Referrer.create("name" => "http://.aol.com")
   end
 
+  def populate_ip_table
+    Ip.create(address: "192.168.0.1")
+    Ip.create(address: "")
+    Ip.create(address: "192.168.0.1")
+  end
+
 end

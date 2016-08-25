@@ -30,8 +30,11 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.most_used_request_type
-    id = group(:request_type_id).count.max_by{ |k,v| v }.first
-    RequestType.find(id).http_verb
+    # require "pry"; binding.pry
+    # id = group(:request_type_id).count.max_by{ |k,v| v }.first
+    # RequestType.find(id).http_verb
+    # RequestType.joins(:payload_requests).group(:id).first.http_verb
+    RequestType.joins(:payload_requests).group(:http_verb).order('count(*) DESC').count.keys.first
   end
 
   def self.all_http_verbs
@@ -49,10 +52,13 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.browser_breakdown
-    counted_agent_ids = group(:agent_id).order('count(*) DESC').count
-    counted_agent_ids.map do |agent_id, count|
-      "#{Agent.find(agent_id).browser}: #{count}"
-    end
+    # require "pry"; binding.pry
+
+    # counted_agent_ids = group(:agent_id).order('count(*) DESC').count
+    # counted_agent_ids.map do |agent_id, count|
+    #   "#{Agent.find(agent_id).browser}: #{count}"
+    Agent.joins(:payload_requests).group(:browser).order('count(*) DESC').count
+    # end
   end
 
   def self.os_breakdown
