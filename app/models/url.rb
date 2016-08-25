@@ -3,4 +3,8 @@ class Url < ActiveRecord::Base
 
   validates :url_path, presence: true
 
+  def self.ordered_urls
+    Url.pluck(:url_path)
+  end
+
 end

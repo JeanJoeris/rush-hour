@@ -1,6 +1,6 @@
 require_relative '../test_helper'
 
-class UrlsTest < Minitest::Test
+class UrlTest < Minitest::Test
   include TestHelpers
 
   def create_params
@@ -40,6 +40,17 @@ class UrlsTest < Minitest::Test
     payload = PayloadRequest.create(payload_params)
 
     assert_equal payload, url.payload_requests.first
+  end
+
+  def test_it_finds_all_urls
+    Url.create("url_path"=>"HTTP://www.google.com")
+    Url.create("url_path"=>"HTTP://www.reddit.com")
+    Url.create("url_path"=>"HTTP://www.reddit.com")
+    Url.create("url_path"=>"HTTP://www.vwvortex.com")
+    Url.create("url_path"=>"HTTP://www.vxvortex.com")
+    Url.create("url_path"=>"HTTP://www.reddit.com")
+
+    assert_equal 1, Url.ordered_urls
   end
 
 end

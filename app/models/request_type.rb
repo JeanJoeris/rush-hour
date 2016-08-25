@@ -3,4 +3,8 @@ class RequestType < ActiveRecord::Base
 
   validates :http_verb, presence: true
 
+  def self.all_http_verbs_used
+    RequestType.pluck(:http_verb)
+  end
+
 end

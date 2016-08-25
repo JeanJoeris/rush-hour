@@ -139,4 +139,8 @@ class PayloadRequestTest < Minitest::Test
     assert_equal "PUT", PayloadRequest.most_used_request_type
   end
 
+  def test_it_returns_all_screen_resolutions
+
+  end
+
 end
