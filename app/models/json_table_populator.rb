@@ -7,6 +7,7 @@ module JsonTablePopulator
     Url.find_or_create_by(url_path: parsed_payload["url"])
     Referrer.find_or_create_by(name: parsed_payload["url"])
     RequestType.find_or_create_by(requestType: parsed_payload["url"])
+    #start working here to finshing making tests pass
     Agent.find_or_create_by(: parsed_payload["url"])
     ScreenResolution.find_or_create_by(url_path: parsed_payload["url"])
     Ip.find_or_create_by(url_path: parsed_payload["url"])
