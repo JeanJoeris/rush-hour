@@ -46,7 +46,7 @@ class JsonTablePopulatorTest < Minitest::Test
   def test_json_add_makes_agent_from_json
     JsonTablePopulator.add(payload)
 
-    assert_equal "Intel Mac OS X 10_8_2", Agent.all.first.os
+    assert_equal "OS X 10.8.2", Agent.all.first.os
     assert_equal "Chrome", Agent.all.first.browser
   end
 
