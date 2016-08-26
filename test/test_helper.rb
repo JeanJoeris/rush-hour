@@ -75,8 +75,14 @@ module TestHelpers
 
   def populate_ip_table
     Ip.create(address: "192.168.0.1")
-    Ip.create(address: "")
     Ip.create(address: "192.168.0.1")
+    Ip.create(address: "192.168.0.1")
+  end
+
+  def populate_screen_resoultion_table
+    ScreenResolution.create(width: "1260", height: "960")
+    ScreenResolution.create(width: "1000", height: "750")
+    ScreenResolution.create(width: "1500", height: "1100")
   end
 
 end
