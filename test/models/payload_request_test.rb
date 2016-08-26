@@ -127,7 +127,6 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
-    require "pry"; binding.pry
     assert_equal "PUT", PayloadRequest.most_used_request_type
   end
 
@@ -144,8 +143,11 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_2)
     PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
 
-    assert_equal ["GET", "DELETE", "PUT"], PayloadRequest.all_http_verbs
+    assert_equal "GET", PayloadRequest.all_http_verbs[0]
+    assert_includes ["DELETE", "PUT"], PayloadRequest.all_http_verbs[1]
+    assert_includes ["DELETE", "PUT"], PayloadRequest.all_http_verbs[2]
   end
 
   def test_ordered_urls_from_most_requested_to_least
@@ -180,7 +182,7 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
 
-    assert_equal ["IEewwwww: 2", "Firefox: 1", "Chrome: 1"], PayloadRequest.browser_breakdown
+    assert_equal ["IEewwwww: 2", "Chrome: 1", "Firefox: 1"], PayloadRequest.browser_breakdown_report
   end
 
   def test_os_breakdown_find_all_browsers_with_count
@@ -198,7 +200,7 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
 
-    assert_equal ["Microsoft Windows 10: 2", "Intel Mac OS X 10_8_2: 1", "Intel Mac OS X 10_8_2: 1"], PayloadRequest.os_breakdown
+    assert_equal ["Intel Mac OS X 10_8_2: 2", "Microsoft Windows 10: 2"], PayloadRequest.os_breakdown_report
   end
 
   def test_get_screen_resolution_with_width_and_height
@@ -216,6 +218,8 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_2)
     PayloadRequest.create(payload_data_3)
 
-    assert_equal ["2000 x 1000", "2500 x 1500", "2100 x 1100"], PayloadRequest.get_screen_resolution
+    assert_includes ["2000 x 1000", "2500 x 1500", "2100 x 1100"], PayloadRequest.get_screen_resolution_report[0]
+    assert_includes ["2000 x 1000", "2500 x 1500", "2100 x 1100"], PayloadRequest.get_screen_resolution_report[1]
+    assert_includes ["2000 x 1000", "2500 x 1500", "2100 x 1100"], PayloadRequest.get_screen_resolution_report[2]
   end
 end
