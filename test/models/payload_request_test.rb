@@ -121,12 +121,14 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_2)
+
     assert_equal "GET", PayloadRequest.most_used_request_type
 
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
+
     assert_equal "PUT", PayloadRequest.most_used_request_type
   end
 
@@ -179,10 +181,12 @@ class PayloadRequestTest < Minitest::Test
 
     PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_2)
+    PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
 
-    assert_equal ["IEewwwww: 2", "Chrome: 1", "Firefox: 1"], PayloadRequest.browser_breakdown_report
+    assert_equal ["IEewwwww: 3", "Firefox: 2", "Chrome: 1"], PayloadRequest.browser_breakdown_report
   end
 
   def test_os_breakdown_find_all_browsers_with_count
