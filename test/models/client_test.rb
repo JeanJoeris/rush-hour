@@ -50,19 +50,87 @@ class ClientTable < Minitest::Test
 
   def test_ips_can_be_accessed_through_client_class
     payload_data_1 = get_payload_data
-    payload_data_1["url_id"] = 1
+    payload_data_1["ip_id"] = 1
     payload_data_2 = get_payload_data
-    payload_data_2["url_id"] = 2
+    payload_data_2["ip_id"] = 2
     payload_data_3 = get_payload_data
-    payload_data_3["url_id"] = 3
+    payload_data_3["ip_id"] = 3
 
     create_payload([payload_data_1, payload_data_2, payload_data_3])
 
     client = get_client
-    populate_url_table
+    populate_ip_table
 
-    assert_equal Url, client.urls.first.class
-    assert_equal 3, client.urls.count
+    assert_equal Ip, client.ips.first.class
+    assert_equal 3, client.ips.count
+  end
+
+  def test_agents_can_be_accessed_through_client_class
+    payload_data_1 = get_payload_data
+    payload_data_1["agent_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["agent_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["agent_id"] = 3
+
+    create_payload([payload_data_1, payload_data_2, payload_data_3])
+
+    client = get_client
+    populate_agent_table
+
+    assert_equal Agent, client.agents.first.class
+    assert_equal 3, client.agents.count
+  end
+
+  def test_referrer_can_be_accessed_through_client_class
+    payload_data_1 = get_payload_data
+    payload_data_1["referrer_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["referrer_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["referrer_id"] = 3
+
+    create_payload([payload_data_1, payload_data_2, payload_data_3])
+
+    client = get_client
+    populate_referrer_table
+
+    assert_equal Referrer, client.referrers.first.class
+    assert_equal 3, client.referrers.count
+  end
+
+  def test_screen_resolution_can_be_accessed_through_client_class
+    payload_data_1 = get_payload_data
+    payload_data_1["screen_resolution_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["screen_resolution_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["screen_resolution_id"] = 3
+
+    create_payload([payload_data_1, payload_data_2, payload_data_3])
+
+    client = get_client
+    populate_screen_resoultion_table
+
+    assert_equal ScreenResolution, client.screen_resolutions.first.class
+    assert_equal 3, client.screen_resolutions.count
+  end
+
+  def test_request_type_can_be_accessed_through_client_class
+    payload_data_1 = get_payload_data
+    payload_data_1["request_type_id"] = 1
+    payload_data_2 = get_payload_data
+    payload_data_2["request_type_id"] = 2
+    payload_data_3 = get_payload_data
+    payload_data_3["request_type_id"] = 3
+
+    create_payload([payload_data_1, payload_data_2, payload_data_3])
+
+    client = get_client
+    populate_request_types_table
+
+    assert_equal RequestType, client.request_types.first.class
+    assert_equal 3, client.request_types.count
   end
 
 end

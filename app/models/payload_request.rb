@@ -30,48 +30,44 @@ class PayloadRequest < ActiveRecord::Base
   end
 
   def self.most_used_request_type
-    # require "pry"; binding.pry
-    # id = group(:request_type_id).count.max_by{ |k,v| v }.first
-    # RequestType.find(id).http_verb
-    # RequestType.joins(:payload_requests).group(:id).first.http_verb
     RequestType.joins(:payload_requests).group(:http_verb).order('count(*) DESC').count.keys.first
   end
 
   def self.all_http_verbs
-    ids = pluck(:request_type_id).uniq
-    ids.map {|id| RequestType.find(id).http_verb}
+    RequestType.joins(:payload_requests).pluck(:http_verb).uniq
   end
 
   def self.ordered_urls
-    url_ids = group(:url_id).order('count(*) DESC').count.keys
-    url_ids.map{|id| Url.find(id)}
+    Url.joins(:payload_requests).group(:url_path).order("count(*) DESC")
   end
 
   def self.ordered_url_paths
-    ordered_urls.map{|url| url.url_path}
+    ordered_urls.count.keys
   end
 
   def self.browser_breakdown
-    # require "pry"; binding.pry
+    Agent.joins(:payload_requests).group(:browser).order('count(*) DESC')
+  end
 
-    # counted_agent_ids = group(:agent_id).order('count(*) DESC').count
-    # counted_agent_ids.map do |agent_id, count|
-    #   "#{Agent.find(agent_id).browser}: #{count}"
-    Agent.joins(:payload_requests).group(:browser).order('count(*) DESC').count
-    # end
+  def self.browser_breakdown_report
+    browser_breakdown.count.map { |browser, count| "#{browser}: #{count}" }
   end
 
   def self.os_breakdown
-    counted_agent_ids = group(:agent_id).order('count(*) DESC').count
-    counted_agent_ids.map do |agent_id, count|
-      "#{Agent.find(agent_id).os}: #{count}"
-    end
+    Agent.joins(:payload_requests).group(:os).order('count(*) DESC')
+  end
+
+  def self.os_breakdown_report
+    os_breakdown.count.map { |os, count| "#{os}: #{count}" }
   end
 
   def self.get_screen_resolution
-    screen_resolution = pluck(:screen_resolution_id).uniq
-    screen_resolution.map do |id|
-      "#{ScreenResolution.find(id).width} x #{ScreenResolution.find(id).height}"
+    ScreenResolution.joins(:payload_requests).distinct.select(:width, :height)
+  end
+
+  def self.get_screen_resolution_report
+    get_screen_resolution.map do |resolution|
+      "#{resolution.width} x #{resolution. height}"
     end
   end
 

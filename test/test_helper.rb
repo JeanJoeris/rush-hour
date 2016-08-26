@@ -81,8 +81,8 @@ module TestHelpers
 
   def populate_ip_table
     Ip.create(address: "192.168.0.1")
-    Ip.create(address: "")
-    Ip.create(address: "192.168.0.1")
+    Ip.create(address: "192.168.0.2")
+    Ip.create(address: "192.168.0.3")
   end
 
 end

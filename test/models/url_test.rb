@@ -183,23 +183,11 @@ class UrlTest < Minitest::Test
                     payload_data_4]
                   )
 
-    # PayloadRequest.create(payload_data_1)
-    # PayloadRequest.create(payload_data_1)
-    # PayloadRequest.create(payload_data_2)
-    # PayloadRequest.create(payload_data_3)
-    # PayloadRequest.create(payload_data_3)
-    # PayloadRequest.create(payload_data_3)
-    # PayloadRequest.create(payload_data_3)
-    # PayloadRequest.create(payload_data_4)
-    # PayloadRequest.create(payload_data_4)
-    # PayloadRequest.create(payload_data_4)
-    #
-
     url_data_1 = create_params
 
     populate_referrer_table
 
-    assert_equal ["http://.yahoo.com", "http://.aol.com", "http://.google.com"], url_data_1.top_referrer_paths
+    assert_equal ["http://.yahoo.com", "http://.aol.com", "http://.google.com"], url_data_1.top_referrers_report
 
   end
 
@@ -223,8 +211,6 @@ class UrlTest < Minitest::Test
   end
 
   def test_url_finds_top_user_agents
-    populate_request_types_table
-
     payload_data_1 = get_payload_data
 
     payload_data_2 = get_payload_data
@@ -232,26 +218,26 @@ class UrlTest < Minitest::Test
 
     payload_data_3 = get_payload_data
     payload_data_3["agent_id"] = 3
-    payloads = [
-      payload_data_1,
-      payload_data_1,
-      payload_data_1,
-      payload_data_2,
-      payload_data_3,
-      payload_data_3
-    ]
-    payloads.each do |data|
-      PayloadRequest.create(data)
-    end
+    create_payload(
+                    [
+                      payload_data_1,
+                      payload_data_1,
+                      payload_data_1,
+                      payload_data_2,
+                      payload_data_3,
+                      payload_data_3
+                    ]
+                  )
+
     test_url = create_params
     agent_1 = Agent.create(os: "Intel Mac OS X 10_8_2", browser: "Chrome")
     agent_2 = Agent.create(os: "Microsoft Windows 10", browser: "IEewwwww")
     agent_3 = Agent.create(os: "Debian Redhat version x.x", browser: "Chromium")
 
-    top_agents = test_url.top_agents
-    assert_equal agent_1.id, top_agents.first.id
-    assert_equal agent_3.id, top_agents[1].id
-    assert_equal agent_2.id, top_agents.last.id
+    agents = test_url.top_agents.map { |agent| agent }
+    assert_equal agent_1, agents.first
+    assert_equal agent_3, agents[1]
+    assert_equal agent_2, agents.last
   end
 
 end
