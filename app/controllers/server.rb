@@ -20,6 +20,13 @@ module RushHour
       end
     end
 
+    post '/sources/:IDENTIFIER/data' do
+      client = Client.find_by(identifier: params[:IDENTIFIER])
+      JsonTablePopulator.add(params[:payload], client.id)
+      require "pry"; binding.pry
+      status 200
+    end
+
     def is_valid_client
     end
   end
