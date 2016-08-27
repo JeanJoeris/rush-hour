@@ -22,13 +22,23 @@ module RushHour
 
     post '/sources/:IDENTIFIER/data' do
       client = Client.find_by(identifier: params[:IDENTIFIER])
-      JsonTablePopulator.add(params[:payload], client.id)
-      require "pry"; binding.pry
-      status 200
+      if !client
+        status 403
+        body "Client doesn't exist."
+      elsif PayloadRequest.find_by(requested_at: DateTime.strptime(JSON.parse(params[:payload])["requestedAt"], "%Y-%m-%d %H:%M:%S %z"))
+        status 403
+        body "This is already entered"
+      else
+        payload_request = JsonTablePopulator.new(params[:payload], client.id)
+        if payload_request.save
+          status 200
+        else
+          status 400
+          body "No payload request found"
+        end
+      end
     end
 
-    def is_valid_client
-    end
   end
 
   def link_to(href, link_text)

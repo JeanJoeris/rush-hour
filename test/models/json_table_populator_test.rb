@@ -64,7 +64,7 @@ class JsonTablePopulatorTest < Minitest::Test
   end
 
   def test_json_add_will_create_the_payload
-    JsonTablePopulator.add(payload, 1)
+    payload_1 = JsonTablePopulator.add(payload, 1)
     assert_equal 1, PayloadRequest.all.count
   end
 end
