@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825212741) do
+ActiveRecord::Schema.define(version: 20160827180708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20160825212741) do
     t.integer  "agent_id"
     t.integer  "screen_resolution_id"
     t.integer  "request_type_id"
-    t.string   "client_id"
+    t.integer  "client_id"
   end
 
   create_table "referrers", force: :cascade do |t|

@@ -20,7 +20,34 @@ module RushHour
       end
     end
 
-    def is_valid_client
+    post '/sources/:IDENTIFIER/data' do
+      client = Client.find_by(identifier: params[:IDENTIFIER])
+      if !client
+        status 403
+        body "Client doesn't exist."
+      elsif PayloadRequest.find_by(requested_at: DateTime.strptime(JSON.parse(params[:payload])["requestedAt"], "%Y-%m-%d %H:%M:%S %z"))
+        status 403
+        body "This is already entered"
+      else
+        payload_request = JsonTablePopulator.new(params[:payload], client.id)
+        if payload_request.save
+          status 200
+        else
+          status 400
+          body "No payload request found"
+        end
+      end
     end
+
   end
+
+  def link_to(href, link_text)
+    "<a href='#{href}'>#{link_text}</a>"
+  end
+
+  def breakdown_table(data, name)
+    @data = data
+    erb :'shared/_generic_table', locals: {category_name: name}
+  end
+
 end

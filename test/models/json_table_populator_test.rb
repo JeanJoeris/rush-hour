@@ -26,41 +26,45 @@ class JsonTablePopulatorTest < Minitest::Test
   end
 
   def test_json_add_makes_url_from_json
-    JsonTablePopulator.add(payload)
+    JsonTablePopulator.add(payload, 1)
 
     assert_equal "http://jumpstartlab.com/blog", Url.all.first.url_path
   end
 
   def test_json_add_makes_referrer_from_json
-    JsonTablePopulator.add(payload)
+    JsonTablePopulator.add(payload, 1)
 
     assert_equal "http://jumpstartlab.com", Referrer.all.first.name
   end
 
   def test_json_add_makes_request_type_from_json
-    JsonTablePopulator.add(payload)
+    JsonTablePopulator.add(payload, 1)
 
     assert_equal "GET", RequestType.all.first.http_verb
   end
 
   def test_json_add_makes_agent_from_json
-    JsonTablePopulator.add(payload)
+    JsonTablePopulator.add(payload, 1)
 
     assert_equal "OS X 10.8.2", Agent.all.first.os
     assert_equal "Chrome", Agent.all.first.browser
   end
 
   def test_json_add_makes_screen_resolution_from_json
-    JsonTablePopulator.add(payload)
+    JsonTablePopulator.add(payload, 1)
 
     assert_equal "1920", ScreenResolution.all.first.width
     assert_equal "1280", ScreenResolution.all.first.height
   end
 
   def test_json_add_makes_ip_from_json
-    JsonTablePopulator.add(payload)
+    JsonTablePopulator.add(payload, 1)
 
     assert_equal "63.29.38.211", Ip.all.first.address
   end
 
+  def test_json_add_will_create_the_payload
+    payload_1 = JsonTablePopulator.add(payload, 1)
+    assert_equal 1, PayloadRequest.all.count
+  end
 end
