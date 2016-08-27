@@ -4,6 +4,16 @@ module RushHour
       erb :error
     end
 
+    def breakdown_table(joined_table, name)
+      @data = joined_table.count
+      erb :'shared/_generic_table', locals: {category_name: name}
+    end
+
+    get '/sources/:IDENTIFIER' do
+      @client = Client.find_by(identifier: params[:IDENTIFIER])
+      erb :'client/show'
+    end
+
     post '/sources' do
       if Client.find_by(identifier: params[:identifier], root_url: params[:rootUrl])
         status 403
@@ -22,10 +32,12 @@ module RushHour
 
     post '/sources/:IDENTIFIER/data' do
       client = Client.find_by(identifier: params[:IDENTIFIER])
+      url = Url.find_by(url_path: JSON.parse(params[:payload])["url"])
       if !client
         status 403
         body "Client doesn't exist."
-      elsif PayloadRequest.find_by(requested_at: DateTime.strptime(JSON.parse(params[:payload])["requestedAt"], "%Y-%m-%d %H:%M:%S %z"))
+      elsif JsonTablePopulator.payload_already_exists?(params[:payload], client.id)
+      # elsif PayloadRequest.exists?(requested_at: DateTime.strptime(JSON.parse(params[:payload])["requestedAt"], "%Y-%m-%d %H:%M:%S %z"), responded_in: JSON.parse(params[:payload])["respondedIn"], url_id: url.id)
         status 403
         body "This is already entered"
       else
@@ -38,16 +50,11 @@ module RushHour
         end
       end
     end
-
   end
 
   def link_to(href, link_text)
     "<a href='#{href}'>#{link_text}</a>"
   end
 
-  def breakdown_table(data, name)
-    @data = data
-    erb :'shared/_generic_table', locals: {category_name: name}
-  end
 
 end

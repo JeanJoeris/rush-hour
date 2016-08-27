@@ -15,6 +15,10 @@ class Url < ActiveRecord::Base
     payload_requests.all_http_verbs
   end
 
+  def http_verbs_report
+    payload_requests.all_http_verbs_report
+  end
+
   def response_times
     payload_requests.order(responded_in: :desc).pluck(:responded_in)
   end

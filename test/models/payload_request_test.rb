@@ -138,18 +138,21 @@ class PayloadRequestTest < Minitest::Test
     payload_data_1 = get_payload_data
     payload_data_1["request_type_id"] = 1
     payload_data_2 = get_payload_data
-    payload_data_2["request_type_id"] = 5
+    payload_data_2["request_type_id"] = 3
     payload_data_3 = get_payload_data
-    payload_data_3["request_type_id"] = 3
+    payload_data_3["request_type_id"] = 5
 
+    PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_1)
     PayloadRequest.create(payload_data_2)
     PayloadRequest.create(payload_data_3)
     PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
 
-    assert_equal "GET", PayloadRequest.all_http_verbs[0]
-    assert_includes ["DELETE", "PUT"], PayloadRequest.all_http_verbs[1]
-    assert_includes ["DELETE", "PUT"], PayloadRequest.all_http_verbs[2]
+    assert_equal ["DELETE: 3", "GET: 2", "PUT: 1"], PayloadRequest.all_http_verbs_report
+    # assert_equal "GET", PayloadRequest.all_http_verbs[0]
+    # assert_includes ["DELETE", "PUT"], PayloadRequest.all_http_verbs[1]
+    # assert_includes ["DELETE", "PUT"], PayloadRequest.all_http_verbs[2]
   end
 
   def test_ordered_urls_from_most_requested_to_least
