@@ -23,4 +23,14 @@ module RushHour
     def is_valid_client
     end
   end
+
+  def link_to(href, link_text)
+    "<a href='#{href}'>#{link_text}</a>"
+  end
+
+  def breakdown_table(data, name)
+    @data = data
+    erb :'shared/_generic_table', locals: {category_name: name}
+  end
+
 end
