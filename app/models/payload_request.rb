@@ -57,7 +57,7 @@ class PayloadRequest < ActiveRecord::Base
     RequestType.joins(:payload_requests).where(payload_requests: params).group(:http_verb).order("count(*) DESC")
   end
 
-  def self.ordered_urls(params {client_id: = 1})
+  def self.ordered_urls(params = {client_id: 1})
     Url.joins(:payload_requests).where(payload_requests: params).group(:url_path).order("count(*) DESC")
   end
 
@@ -65,28 +65,28 @@ class PayloadRequest < ActiveRecord::Base
     ordered_urls.count.keys
   end
 
-  def self.browser_breakdown(client_id = 1)
-    Agent.joins(:payload_requests).where(payload_requests: { client_id: client_id }).group(:browser).order('count(*) DESC')
+  def self.browser_breakdown(params = {client_id: 1})
+    Agent.joins(:payload_requests).where(payload_requests: params).group(:browser).order('count(*) DESC')
   end
 
   def self.browser_breakdown_report
     browser_breakdown.count.map { |browser, count| "#{browser}: #{count}" }
   end
 
-  def self.os_breakdown(client_id = 1)
-    Agent.joins(:payload_requests).where(payload_requests: { client_id: client_id }).group(:os).order('count(*) DESC')
+  def self.os_breakdown(params = {client_id: 1})
+    Agent.joins(:payload_requests).where(payload_requests: params).group(:os).order('count(*) DESC')
   end
 
   def self.os_breakdown_report
     os_breakdown.count.map { |os, count| "#{os}: #{count}" }
   end
 
-  def self.get_screen_resolution(client_id = 1)
-    ScreenResolution.joins(:payload_requests).where(payload_requests: { client_id: client_id }).distinct.select(:width, :height)
+  def self.get_screen_resolution(params = {client_id: 1})
+    ScreenResolution.joins(:payload_requests).where(payload_requests: params).distinct.select(:width, :height)
   end
 
-  def self.get_screen_resolution_report(client_id = 1)
-    get_screen_resolution(client_id).map do |resolution|
+  def self.get_screen_resolution_report(params = {client_id: 1})
+    get_screen_resolution(params).map do |resolution|
       "#{resolution.width} x #{resolution. height}"
     end
   end

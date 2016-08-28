@@ -2,6 +2,6 @@
 
 <% @clients.each do |client| %>
   <% if client.payload_requests.count > 0 %>
-    <%= link_to "sources/#{client.identifier}", client.identifier%><br />
+    <h1><%= link_to "sources/#{client.identifier}", client.identifier.capitalize%><br /></h1>
   <% end %>
 <% end %>
