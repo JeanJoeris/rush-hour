@@ -1,4 +1,4 @@
-<p><%= @client.identifier %></p>
+<p><%= @client.identifier.capitalize %></p>
 
 <p>Average Response Time: <%= @client.payload_requests.average_response_time %></p>
 <p>Max Response Time: <%= @client.payload_requests.max_response_time %></p>
@@ -7,6 +7,6 @@
 <p>Screen Resolution Report: <%= @client.payload_requests.get_screen_resolution_report(@client.id) %></p>
 
 <%= breakdown_table(@client.payload_requests.ordered_urls(@client.id), "URL") %>
-<%= breakdown_table(@client.payload_requests.os_breakdown, "OS") %>
-<%= breakdown_table(@client.payload_requests.browser_breakdown, "Browser") %>
-<%= breakdown_table(@client.payload_requests.all_http_verbs, "HTTP Verbs") %>
+<%= breakdown_table(@client.payload_requests.os_breakdown(@client.id), "OS") %>
+<%= breakdown_table(@client.payload_requests.browser_breakdown(@client.id), "Browser") %>
+<%= breakdown_table(@client.payload_requests.all_http_verbs(@client.id), "HTTP Verbs") %>
