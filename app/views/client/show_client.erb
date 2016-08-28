@@ -1,0 +1,12 @@
+<p><%= @client.identifier %></p>
+
+<p>Average Response Time: <%= @client.payload_requests.average_response_time %></p>
+<p>Max Response Time: <%= @client.payload_requests.max_response_time %></p>
+<p>Min Response Time: <%= @client.payload_requests.min_response_time %></p>
+<p>Most Used Request Type: <%= @client.payload_requests.most_used_request_type %></p>
+<p>Screen Resolution Report: <%= @client.payload_requests.get_screen_resolution_report %></p>
+
+<%= breakdown_table(@client.payload_requests.ordered_urls, "URL") %>
+<%= breakdown_table(@client.payload_requests.os_breakdown, "OS") %>
+<%= breakdown_table(@client.payload_requests.browser_breakdown, "Browser") %>
+<%= breakdown_table(@client.payload_requests.all_http_verbs, "HTTP Verbs") %>

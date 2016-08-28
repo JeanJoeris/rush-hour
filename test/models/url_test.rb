@@ -105,12 +105,15 @@ class UrlTest < Minitest::Test
     create_payload(
                   [ payload_data_1,
                     payload_data_2,
-                    payload_data_3 ]
+                    payload_data_2,
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_3]
                   )
 
     google = create_params
 
-    assert_equal ["GET", "POST", "PUT"], google.http_verbs.sort
+    assert_equal ["PUT: 3", "POST: 2", "GET: 1"], google.http_verbs_report
   end
 
   def test_url_only_find_verbs_associated_with_it
@@ -128,13 +131,14 @@ class UrlTest < Minitest::Test
     create_payload(
                   [ payload_data_1,
                     payload_data_2,
+                    payload_data_2,
                     payload_data_3 ]
                   )
 
     google = create_params
     reddit = Url.create(url_path: "http://reddit.com")
 
-    assert_equal ["GET", "POST"], google.http_verbs
+    assert_equal ["POST: 2", "GET: 1"], google.http_verbs_report
   end
 
   def test_a_list_of_response_time_across_all_requests_listed_from_longest_to_shortest

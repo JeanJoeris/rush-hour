@@ -6,8 +6,8 @@
   <tbody>
     <% @data.each do |category, count| %>
       <tr>
-        <td>category</tr>
-        <td>count</tr>
+        <td><%= category %>: </td>
+        <td><%= count %></td>
       </tr>
     <% end %>
   </tbody>
