@@ -13,6 +13,10 @@ module RushHour
       "<a href='#{href}'>#{link_text}</a>"
     end
 
+    get '/' do
+      erb :home
+    end
+
     get '/sources' do
       @clients = Client.all
       erb :'sources/index'

@@ -1,5 +1,7 @@
 <h2>Clients</h2>
 
 <% @clients.each do |client| %>
-  <%= link_to "sources/#{client.identifier}", client.identifier %><br />
+  <% if client.payload_requests.count > 0 %>
+    <%= link_to "sources/#{client.identifier}", client.identifier%><br />
+  <% end %>
 <% end %>
