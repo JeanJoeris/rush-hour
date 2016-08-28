@@ -1,0 +1,5 @@
+<h2>Clients</h2>
+
+<% @clients.each do |client| %>
+  <%= link_to "sources/#{client.identifier}", client.identifier %><br />
+<% end %>
