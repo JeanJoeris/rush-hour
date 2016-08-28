@@ -1,10 +1,10 @@
 <h1><p><%= @client.identifier.capitalize %></p></h1>
 
-<p>Average Response Time: <%= @client.payload_requests.average_response_time.round(2) %></p>
-<p>Max Response Time: <%= @client.payload_requests.max_response_time %></p>
-<p>Min Response Time: <%= @client.payload_requests.min_response_time %></p>
-<p>Most Used Request Type: <%= @client.payload_requests.most_used_request_type %></p>
-<p>Screen Resolution Report: <%= @client.payload_requests.get_screen_resolution_report(client_id: @client.id) %></p>
+<p><b>Average Response Time: </b><%= @client.payload_requests.average_response_time.round(2) %></p>
+<p><b>Max Response Time: </b><%= @client.payload_requests.max_response_time %></p>
+<p><b>Min Response Time: </b><%= @client.payload_requests.min_response_time %></p>
+<p><b>Most Used Request Type: </b><%= @client.payload_requests.most_used_request_type %></p>
+<p><b>Screen Resolution Report: </b><%= @client.payload_requests.get_screen_resolution_report(client_id: @client.id) %></p>
 
 
 <% @client.payload_requests.ordered_urls(client_id: @client.id).count.keys.each do |k| %>

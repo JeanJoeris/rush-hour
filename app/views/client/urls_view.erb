@@ -1,13 +1,13 @@
 <h3>Client: <%= @client.identifier.capitalize %></h3>
 <h3>Path: <%= @url.url_path %></h3>
-<p>Average Response Time: <%= @url.payload_requests.average_response_time.round(2) %></p>
-<p>Max Response Time: <%= @url.payload_requests.max_response_time %></p>
-<p>Min Response Time: <%= @url.payload_requests.min_response_time %></p>
-<p>Most Used Request Type: <%= @url.payload_requests.most_used_request_type %></p>
-<p>Screen Resolution Report: <%= @url.payload_requests.get_screen_resolution_report(url_id: @url.id) %></p>
-<p>All Response Times: <%= @url.payload_requests.listed_response_times %></p>
-<p>Top Referrers: <%= @url.payload_requests.top_referrers %></p>
-<p>Top User Agents: <%= @url.payload_requests.top_agents %></p>
+<p><b>Average Response Time: </b><%= @url.payload_requests.average_response_time.round(2) %></p>
+<p><b>Max Response Time: </b><%= @url.payload_requests.max_response_time %></p>
+<p><b>Min Response Time: </b><%= @url.payload_requests.min_response_time %></p>
+<p><b>Most Used Request Type: </b><%= @url.payload_requests.most_used_request_type %></p>
+<p><b>Screen Resolution Report: </b><%= @url.payload_requests.get_screen_resolution_report(url_id: @url.id) %></p>
+<p><b>All Response Times: </b><%= @url.payload_requests.listed_response_times %></p>
+<p><b>Top Referrers: </b><%= @url.payload_requests.top_referrers %></p>
+<p><b>Top User Agents: </b><%= @url.payload_requests.top_agents %></p>
 <a href="/sources/<%= @client.identifier %>">Back to <%= @client.identifier.capitalize %></a>
 
 
