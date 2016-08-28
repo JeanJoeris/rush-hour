@@ -169,7 +169,10 @@ class PayloadRequestTest < Minitest::Test
     PayloadRequest.create(payload_data_2)
     PayloadRequest.create(payload_data_2)
     PayloadRequest.create(payload_data_3)
-    assert_equal ["http://www.reddit.com", "http://www.google.com", "http://www.yahoo.com"], PayloadRequest.ordered_url_paths
+    PayloadRequest.create(payload_data_3)
+    PayloadRequest.create(payload_data_3)
+
+    assert_equal ["http://www.yahoo.com", "http://www.reddit.com", "http://www.google.com"], PayloadRequest.ordered_url_paths
   end
 
   def test_browser_breakdown_find_all_browsers_with_count

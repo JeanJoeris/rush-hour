@@ -11,8 +11,12 @@ module RushHour
 
     get '/sources/:IDENTIFIER' do
       @client = Client.find_by(identifier: params[:IDENTIFIER])
+      # @client_identifier = params[:IDENTIFIER].split(".com")
       erb :'client/show'
     end
+
+    # get /sources/:IDENTIFIER/urls/:RELATIVEPATH do
+    # end
 
     post '/sources' do
       if Client.find_by(identifier: params[:identifier], root_url: params[:rootUrl])
@@ -50,6 +54,8 @@ module RushHour
         end
       end
     end
+
+
   end
 
   def link_to(href, link_text)
