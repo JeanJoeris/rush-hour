@@ -9,6 +9,7 @@ gem 'useragent'
 gem 'cane'
 gem 'reek'
 gem 'table_print'
+gem 'byebug'
 
 group :development, :test do
   gem 'shotgun'

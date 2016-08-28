@@ -6,7 +6,11 @@
 <p>Most Used Request Type: <%= @client.payload_requests.most_used_request_type %></p>
 <p>Screen Resolution Report: <%= @client.payload_requests.get_screen_resolution_report(@client.id) %></p>
 
-<%= breakdown_table(@client.payload_requests.ordered_urls(@client.id), "URL") %>
+
+<% @client.payload_requests.ordered_urls(@client.id).count.keys.each do |k| %>
+ <a href="/sources/<%= @client.identifier %>/urls<%= k.gsub(@client.root_url, "") %>"> <%= k.gsub(@client.root_url, "") %></a>
+<% end %>
+
 <%= breakdown_table(@client.payload_requests.os_breakdown(@client.id), "OS") %>
 <%= breakdown_table(@client.payload_requests.browser_breakdown(@client.id), "Browser") %>
 <%= breakdown_table(@client.payload_requests.all_http_verbs(@client.id), "HTTP Verbs") %>
