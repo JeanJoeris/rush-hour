@@ -35,43 +35,42 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.all_http_verbs_report
     all_http_verbs.count.map { |verb, count| "#{verb}: #{count}" }
-    # RequestType.joins(:payload_requests).group.pluck(:http_verb).uniq
   end
 
-  def self.all_http_verbs
-    RequestType.joins(:payload_requests).group(:http_verb).order("count(*) DESC")
+  def self.all_http_verbs(client_id = 1)
+    RequestType.joins(:payload_requests).where(payload_requests: { client_id: client_id }).group(:http_verb).order("count(*) DESC")
   end
 
-  def self.ordered_urls
-    Url.joins(:payload_requests).group(:url_path).order("count(*) DESC")
+  def self.ordered_urls(client_id = 1)
+    Url.joins(:payload_requests).where(payload_requests: { client_id: client_id }).group(:url_path).order("count(*) DESC")
   end
 
   def self.ordered_url_paths
     ordered_urls.count.keys
   end
 
-  def self.browser_breakdown
-    Agent.joins(:payload_requests).group(:browser).order('count(*) DESC')
+  def self.browser_breakdown(client_id = 1)
+    Agent.joins(:payload_requests).where(payload_requests: { client_id: client_id }).group(:browser).order('count(*) DESC')
   end
 
   def self.browser_breakdown_report
     browser_breakdown.count.map { |browser, count| "#{browser}: #{count}" }
   end
 
-  def self.os_breakdown
-    Agent.joins(:payload_requests).group(:os).order('count(*) DESC')
+  def self.os_breakdown(client_id = 1)
+    Agent.joins(:payload_requests).where(payload_requests: { client_id: client_id }).group(:os).order('count(*) DESC')
   end
 
   def self.os_breakdown_report
     os_breakdown.count.map { |os, count| "#{os}: #{count}" }
   end
 
-  def self.get_screen_resolution
-    ScreenResolution.joins(:payload_requests).distinct.select(:width, :height)
+  def self.get_screen_resolution(client_id = 1)
+    ScreenResolution.joins(:payload_requests).where(payload_requests: { client_id: client_id }).distinct.select(:width, :height)
   end
 
-  def self.get_screen_resolution_report
-    get_screen_resolution.map do |resolution|
+  def self.get_screen_resolution_report(client_id = 1)
+    get_screen_resolution(client_id).map do |resolution|
       "#{resolution.width} x #{resolution. height}"
     end
   end
