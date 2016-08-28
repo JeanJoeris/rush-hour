@@ -66,7 +66,6 @@ module JsonTablePopulator
       # require "pry"; binding.pry
       false
     else
-      # require "pry"; binding.pry
       PayloadRequest.exists?(responded_in: parsed_payload["respondedIn"],
                             requested_at: DateTime.strptime(parsed_payload["requestedAt"], "%Y-%m-%d %H:%M:%S %z"),
                             url_id: url.id,

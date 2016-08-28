@@ -35,7 +35,6 @@ class PayloadRequest < ActiveRecord::Base
 
   def self.all_http_verbs_report
     all_http_verbs.count.map { |verb, count| "#{verb}: #{count}" }
-    # RequestType.joins(:payload_requests).group.pluck(:http_verb).uniq
   end
 
   def self.all_http_verbs
