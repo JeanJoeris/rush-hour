@@ -9,6 +9,19 @@ module RushHour
       erb :'shared/_generic_table', locals: {category_name: name}
     end
 
+    def link_to(href, link_text)
+      "<a href='#{href}'>#{link_text}</a>"
+    end
+
+    get '/' do
+      erb :home
+    end
+
+    get '/sources' do
+      @clients = Client.all
+      erb :'sources/index'
+    end
+
     get '/sources/:IDENTIFIER' do
       @client = Client.find_by(identifier: params[:IDENTIFIER])
       # @client_identifier = params[:IDENTIFIER].split(".com")
@@ -58,9 +71,6 @@ module RushHour
 
   end
 
-  def link_to(href, link_text)
-    "<a href='#{href}'>#{link_text}</a>"
-  end
 
 
 end

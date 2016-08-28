@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="/css/bootstrap.css">
+  <link rel="stylesheet" href="/application.css">
+  <title>Rush-Hour Traffic Tracking</title>
+</head>
+
+<body>
+  <div id="background_container">
+    <div class="navbar navbar-static-top col-md-12">
+
+        <div class="navbar-header">
+          <h2>Rush-Hour <small>traffic tracking</small></h2>
+        </div>
+
+        <ul class='nav navbar-nav navbar-right'>
+          <li><%= link_to "/", "Home" %></li>
+          <li><%= link_to "/sources", "Clients" %></li>
+        </ul>
+
+    </div>
+
+    <div class="container" id="content_container">
+      <%= yield %>
+    </div>
+
+  </div>
+</body>
+</html>

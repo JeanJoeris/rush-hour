@@ -1,14 +1,18 @@
-<table>
-  <thead>
-    <th><%= category_name %></th>
-    <th>Count</th>
-  </thead>
+<table class="table col col-md-6 jumbotron">
+  <div class="row">
+    <thead>
+      <th class="col col-md-6"><%= category_name %></th>
+      <th class="col col-md-6">Count</th>
+    </thead>
+  </div>
   <tbody>
-    <% @data.each do |category, count| %>
-      <tr>
-        <td><%= category %>: </td>
-        <td><%= count %></td>
-      </tr>
-    <% end %>
+    <div class="row">
+      <% @data.each do |category, count| %>
+        <tr>
+          <td><%= category %> </td>
+          <td><%= count %></td>
+        </tr>
+      <% end %>
+    </div>
   </tbody>
 </table>
