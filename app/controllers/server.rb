@@ -24,12 +24,20 @@ module RushHour
 
     get '/sources/:IDENTIFIER' do
       @client = Client.find_by(identifier: params[:IDENTIFIER])
-      # @client_identifier = params[:IDENTIFIER].split(".com")
       erb :'client/show'
     end
 
-    # get /sources/:IDENTIFIER/urls/:RELATIVEPATH do
-    # end
+    get '/sources/:IDENTIFIER/urls/:RELATIVEPATH' do
+      @client = Client.find_by(identifier: params[:IDENTIFIER])
+      full_path = @client.root_url + "/" + params['RELATIVEPATH']
+      @url = @client.urls.find_by(url_path: full_path)
+      # require 'pry'; binding.pry
+      if @url
+        erb :"client/urls_view"
+      else
+        erb :error
+      end
+    end
 
     post '/sources' do
       if Client.find_by(identifier: params[:identifier], root_url: params[:rootUrl])

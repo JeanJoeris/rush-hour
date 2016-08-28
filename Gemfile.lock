@@ -21,6 +21,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.1)
     bond (0.5.1)
     bond (0.5.1-java)
+    byebug (9.0.4)
     cane (3.0.0)
       parallel
     capybara (2.8.1)
@@ -130,6 +131,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord
+  byebug
   cane
   capybara
   database_cleaner
