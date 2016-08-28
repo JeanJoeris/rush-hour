@@ -53,12 +53,12 @@ class PayloadRequest < ActiveRecord::Base
     all_http_verbs.count.map { |verb, count| "#{verb}: #{count}" }
   end
 
-  def self.all_http_verbs(client_id = 1)
-    RequestType.joins(:payload_requests).where(payload_requests: { client_id: client_id }).group(:http_verb).order("count(*) DESC")
+  def self.all_http_verbs(params = {client_id: 1})
+    RequestType.joins(:payload_requests).where(payload_requests: params).group(:http_verb).order("count(*) DESC")
   end
 
-  def self.ordered_urls(client_id = 1)
-    Url.joins(:payload_requests).where(payload_requests: { client_id: client_id }).group(:url_path).order("count(*) DESC")
+  def self.ordered_urls(params {client_id: = 1})
+    Url.joins(:payload_requests).where(payload_requests: params).group(:url_path).order("count(*) DESC")
   end
 
   def self.ordered_url_paths
