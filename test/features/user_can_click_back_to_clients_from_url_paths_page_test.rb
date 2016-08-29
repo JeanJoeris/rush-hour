@@ -13,13 +13,13 @@ class UserCanClickBackToClientsFromUrlPathsPageTest < FeatureTest
     visit "/sources/#{client.identifier}/urls/sports"
     assert has_content? 'Path:'
     click_link "#{client.identifier.capitalize}"
-    refute has_content? 'Path'
+    refute has_content? 'Path:'
     assert has_content? 'Reddit'
 
     visit "/sources/#{client.identifier}/urls/sports"
     assert has_content? 'Path:'
     click_link "Back to #{client.identifier.capitalize}"
-    refute has_content? 'Path'
+    refute has_content? 'Path:'
     assert has_content? 'Reddit'
   end
 end

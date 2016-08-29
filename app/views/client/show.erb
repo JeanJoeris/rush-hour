@@ -1,15 +1,26 @@
-<h1><p><%= @client.identifier.capitalize %></p></h1>
+<br />
+<br />
+<br />
+<br />
+<h1><%= @client.identifier.capitalize %></h1>
 
-<p><b>Average Response Time: </b><%= @client.payload_requests.average_response_time %></p>
-<p><b>Max Response Time: </b><%= @client.payload_requests.max_response_time %></p>
-<p><b>Min Response Time: </b><%= @client.payload_requests.min_response_time %></p>
-<p><b>Most Used Request Type: </b><%= @client.payload_requests.most_used_request_type %></p>
-<p><b>Screen Resolution Report: </b><%= @client.payload_requests.get_screen_resolution_report(client_id: @client.id) %></p>
+<div class="row well well-sm">
+  <div class="col-md-6">
+    <h2><u>Stats</u></h2>
+    <p><b>Average Response Time: </b><%= @client.payload_requests.average_response_time.round(2) %></p>
+    <p><b>Max Response Time: </b><%= @client.payload_requests.max_response_time %></p>
+    <p><b>Min Response Time: </b><%= @client.payload_requests.min_response_time %></p>
+    <p><b>Most Used Request Type: </b><%= @client.payload_requests.most_used_request_type %></p>
+    <p><b>Screen Resolution Report: </b><%= @client.payload_requests.get_screen_resolution_report(client_id: @client.id) %></p>
+  </div>
 
-
-<% @client.payload_requests.ordered_url_paths(client_id: @client.id).each do |path| %>
- <a href="/sources/<%= @client.identifier %>/urls<%= path.gsub(@client.root_url, "") %>"> <%= path.gsub(@client.root_url, "") %></a>
-<% end %>
+  <div class="col-md-6" id="client_url_list">
+    <h2><u>Paths</u></h2>
+    <% @client.payload_requests.ordered_url_paths(client_id: @client.id).each do |path| %>
+      <h3><%= link_to "/sources/#{@client.identifier}/urls#{path.gsub(@client.root_url, "")}", path.gsub(@client.root_url, "")  %></h3>
+    <% end %>
+  </div>
+</div>
 
 <%= breakdown_table(@client.payload_requests.os_breakdown(client_id: @client.id), "OS") %>
 <%= breakdown_table(@client.payload_requests.browser_breakdown(client_id: @client.id), "Browser") %>
