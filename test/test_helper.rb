@@ -63,6 +63,12 @@ module TestHelpers
     Url.create("url_path"=>"http://www.yahoo.com")
   end
 
+  def populate_url_paths_on_client
+    Url.create("url_path"=>"http://www.reddit.com/sports")
+    Url.create("url_path"=>"http://www.reddit.com/blog")
+    Url.create("url_path"=>"http://www.reddit.com/news")
+  end
+
   def populate_agent_table
     Agent.create(os: "Intel Mac OS X 10_8_2", browser:"Chrome")
     Agent.create(os: "Intel Mac OS X 10_8_2", browser:"Firefox")
