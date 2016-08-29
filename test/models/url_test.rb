@@ -238,10 +238,10 @@ class UrlTest < Minitest::Test
     agent_2 = Agent.create(os: "Microsoft Windows 10", browser: "IEewwwww")
     agent_3 = Agent.create(os: "Debian Redhat version x.x", browser: "Chromium")
 
-    agents = test_url.top_agents.map { |agent| agent }
-    assert_equal agent_1, agents.first
-    assert_equal agent_3, agents[1]
-    assert_equal agent_2, agents.last
+    agents = test_url.top_agents_report
+    assert_equal agent_1.os, agents.first
+    assert_equal agent_3.os, agents[1]
+    assert_equal agent_2.os, agents.last
   end
 
 end

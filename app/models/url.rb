@@ -24,7 +24,7 @@ class Url < ActiveRecord::Base
   end
 
   def top_referrers(number = 3)
-     Referrer.joins(:payload_requests).group(:name).order('count(*) DESC').limit(number)
+     Referrer.joins(:payload_requests).where(payload_requests: {url_id: id}).group(:name).order('count(*) DESC').limit(number)
   end
 
   def top_referrers_report(number = 3)
@@ -32,7 +32,11 @@ class Url < ActiveRecord::Base
   end
 
   def top_agents(number = 3)
-    Agent.joins(:payload_requests).group(:id).order('count(*) DESC').limit(number)
+    Agent.joins(:payload_requests).where(payload_requests: {url_id: id}).group(:os).order('count(*) DESC').limit(number)
+  end
+
+  def top_agents_report(number = 3)
+    top_agents(number).count.map { |name, count| name }
   end
 
   def average_response_time
