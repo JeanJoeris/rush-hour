@@ -33,18 +33,6 @@ class PayloadRequest < ActiveRecord::Base
     order(responded_in: :desc).pluck(:responded_in)
   end
 
-  def self.top_referrers(limit = 3)
-    ordered_ids = group(:referrer_id).count.sort_by{|key,value| -value}.map{|arr| arr[0]}
-    top_referrer_ids = ordered_ids[0..limit-1]
-    top_referrer_ids.map{|id| Referrer.find(id).name}
-  end
-
-  def self.top_agents(limit = 3)
-    ordered_agents = group(:agent_id).count.sort_by{|key, value| -value}.map{|arr| arr[0]}
-    top_agent_ids = ordered_agents[0..limit-1]
-    top_agent_ids.map{|id| Agent.find(id).os}
-  end
-
   def self.most_used_request_type
     RequestType.joins(:payload_requests).group(:http_verb).order('count(*) DESC').count.keys.first
   end
