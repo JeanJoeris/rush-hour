@@ -14,7 +14,7 @@
   <div class="col-md-6" id="client_url_list">
     <h2><u>Paths</u></h2>
     <% @client.payload_requests.ordered_url_paths(client_id: @client.id).each do |path| %>
-     <h4><a href="/sources/<%= @client.identifier %>/urls<%= path.gsub(@client.root_url, "") %>"> <%= path.gsub(@client.root_url, "") %></a></h2>
+     <h3><a href="/sources/<%= @client.identifier %>/urls<%= path.gsub(@client.root_url, "") %>"> <%= path.gsub(@client.root_url, "") %></a></h3>
     <% end %>
   </div>
 </div>
