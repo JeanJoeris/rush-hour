@@ -1,4 +1,7 @@
 <br />
+<br />
+<br />
+<br />
 <h1><%= @client.identifier.capitalize %></h1>
 
 <div class="row well well-sm">
@@ -14,7 +17,7 @@
   <div class="col-md-6" id="client_url_list">
     <h2><u>Paths</u></h2>
     <% @client.payload_requests.ordered_url_paths(client_id: @client.id).each do |path| %>
-     <h3><a href="/sources/<%= @client.identifier %>/urls<%= path.gsub(@client.root_url, "") %>"> <%= path.gsub(@client.root_url, "") %></a></h3>
+      <h3><%= link_to "/sources/#{@client.identifier}/urls#{path.gsub(@client.root_url, "")}", path.gsub(@client.root_url, "")  %></h3>
     <% end %>
   </div>
 </div>
