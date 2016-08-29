@@ -1,14 +1,14 @@
 <h1><p><%= @client.identifier.capitalize %></p></h1>
 
-<p><b>Average Response Time: </b><%= @client.payload_requests.average_response_time.round(2) %></p>
+<p><b>Average Response Time: </b><%= @client.payload_requests.average_response_time %></p>
 <p><b>Max Response Time: </b><%= @client.payload_requests.max_response_time %></p>
 <p><b>Min Response Time: </b><%= @client.payload_requests.min_response_time %></p>
 <p><b>Most Used Request Type: </b><%= @client.payload_requests.most_used_request_type %></p>
 <p><b>Screen Resolution Report: </b><%= @client.payload_requests.get_screen_resolution_report(client_id: @client.id) %></p>
 
 
-<% @client.payload_requests.ordered_urls(client_id: @client.id).count.keys.each do |k| %>
- <a href="/sources/<%= @client.identifier %>/urls<%= k.gsub(@client.root_url, "") %>"> <%= k.gsub(@client.root_url, "") %></a>
+<% @client.payload_requests.ordered_url_paths(client_id: @client.id).each do |path| %>
+ <a href="/sources/<%= @client.identifier %>/urls<%= path.gsub(@client.root_url, "") %>"> <%= path.gsub(@client.root_url, "") %></a>
 <% end %>
 
 <%= breakdown_table(@client.payload_requests.os_breakdown(client_id: @client.id), "OS") %>

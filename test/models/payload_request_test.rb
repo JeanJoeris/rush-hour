@@ -71,9 +71,11 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["responded_in"] = 30
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_3
+                  ])
 
     assert_equal 20, PayloadRequest.average_response_time
   end
@@ -86,9 +88,11 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["responded_in"] = 30
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_3
+                  ])
 
     assert_equal 10, PayloadRequest.min_response_time
   end
@@ -101,9 +105,11 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["responded_in"] = 30
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_3
+                  ])
 
     assert_equal 30, PayloadRequest.max_response_time
   end
@@ -118,16 +124,20 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["request_type_id"] = 3
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
+    create_payload([
+                    payload_data_1,
+                    payload_data_1,
+                    payload_data_2
+                  ])
 
     assert_equal "GET", PayloadRequest.most_used_request_type
 
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_3
+                  ])
 
     assert_equal "PUT", PayloadRequest.most_used_request_type
   end
@@ -142,17 +152,16 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["request_type_id"] = 5
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_1,
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_3
+                  ])
 
     assert_equal ["DELETE: 3", "GET: 2", "PUT: 1"], PayloadRequest.all_http_verbs_report
-    # assert_equal "GET", PayloadRequest.all_http_verbs[0]
-    # assert_includes ["DELETE", "PUT"], PayloadRequest.all_http_verbs[1]
-    # assert_includes ["DELETE", "PUT"], PayloadRequest.all_http_verbs[2]
   end
 
   def test_ordered_urls_from_most_requested_to_least
@@ -165,12 +174,14 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["url_id"] = 3
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_2,
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_3
+                  ])
 
     assert_equal ["http://www.yahoo.com", "http://www.reddit.com", "http://www.google.com"], PayloadRequest.ordered_url_paths
   end
@@ -185,12 +196,14 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["agent_id"] = 3
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_2,
+                    payload_data_3,
+                    payload_data_3,
+                    payload_data_3
+                  ])
 
     assert_equal ["IEewwwww: 3", "Firefox: 2", "Chrome: 1"], PayloadRequest.browser_breakdown_report
   end
@@ -205,10 +218,12 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["agent_id"] = 3
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_3,
+                    payload_data_3
+                  ])
 
     assert_equal ["Intel Mac OS X 10_8_2: 2", "Microsoft Windows 10: 2"], PayloadRequest.os_breakdown_report
   end
@@ -223,10 +238,12 @@ class PayloadRequestTest < Minitest::Test
     payload_data_3 = get_payload_data
     payload_data_3["screen_resolution_id"] = 3
 
-    PayloadRequest.create(payload_data_1)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_2)
-    PayloadRequest.create(payload_data_3)
+    create_payload([
+                    payload_data_1,
+                    payload_data_2,
+                    payload_data_2,
+                    payload_data_3
+                  ])
 
     assert_includes ["2000 x 1000", "2500 x 1500", "2100 x 1100"], PayloadRequest.get_screen_resolution_report[0]
     assert_includes ["2000 x 1000", "2500 x 1500", "2100 x 1100"], PayloadRequest.get_screen_resolution_report[1]

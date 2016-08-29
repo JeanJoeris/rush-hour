@@ -14,6 +14,10 @@ require 'rack/test'
 DatabaseCleaner.strategy = :truncation
 Capybara.app = RushHour::Server
 
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+end
+
 module TestHelpers
   include Rack::Test::Methods
   def app     # def app is something that Rack::Test is looking for
@@ -29,6 +33,7 @@ module TestHelpers
       PayloadRequest.create(arg)
     end
   end
+
 
   def get_payload_data
     {
@@ -56,6 +61,12 @@ module TestHelpers
     Url.create("url_path"=>"http://www.google.com")
     Url.create("url_path"=>"http://www.reddit.com")
     Url.create("url_path"=>"http://www.yahoo.com")
+  end
+
+  def populate_url_paths_on_client
+    Url.create("url_path"=>"http://www.reddit.com/sports")
+    Url.create("url_path"=>"http://www.reddit.com/blog")
+    Url.create("url_path"=>"http://www.reddit.com/news")
   end
 
   def populate_agent_table

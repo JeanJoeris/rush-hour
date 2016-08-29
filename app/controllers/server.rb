@@ -56,12 +56,10 @@ module RushHour
 
     post '/sources/:IDENTIFIER/data' do
       client = Client.find_by(identifier: params[:IDENTIFIER])
-      url = Url.find_by(url_path: JSON.parse(params[:payload])["url"])
       if !client
         status 403
         body "Client doesn't exist."
       elsif JsonTablePopulator.payload_already_exists?(params[:payload], client.id)
-      # elsif PayloadRequest.exists?(requested_at: DateTime.strptime(JSON.parse(params[:payload])["requestedAt"], "%Y-%m-%d %H:%M:%S %z"), responded_in: JSON.parse(params[:payload])["respondedIn"], url_id: url.id)
         status 403
         body "This is already entered"
       else
@@ -74,10 +72,5 @@ module RushHour
         end
       end
     end
-
-
   end
-
-
-
 end

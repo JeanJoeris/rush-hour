@@ -6,7 +6,7 @@
     <h3>Client: <a href="/sources/<%= @client.identifier %>"><%= @client.identifier.capitalize %></a></h3>
   </div>
 </div>
-<p><b>Average Response Time: </b><%= @url.payload_requests.average_response_time.round(2) %></p>
+<p><b>Average Response Time: </b><%= @url.payload_requests.average_response_time %></p>
 <p><b>Max Response Time: </b><%= @url.payload_requests.max_response_time %></p>
 <p><b>Min Response Time: </b><%= @url.payload_requests.min_response_time %></p>
 <p><b>Most Used Request Type: </b><%= @url.payload_requests.most_used_request_type %></p>
