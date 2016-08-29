@@ -40,16 +40,7 @@ class ServerTest < Minitest::Test
 
   def test_server_post_to_client_will_will_create_payload_request
     client = Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    payload=  '{"url":"http://jumpstartlab.com/blog",
-              "requestedAt":"2013-02-16 21:38:28 -0700",
-              "respondedIn":37,
-              "referredBy":"http://jumpstartlab.com",
-              "requestType":"GET",
-              "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-              "resolutionWidth":"1920",
-              "resolutionHeight":"1280",
-              "ip":"63.29.38.211"}'
-    post "/sources/#{client.identifier}/data", { payload: payload }
+    post "/sources/#{client.identifier}/data", { payload: json_payload }
     assert_equal 200, last_response.status
     assert_equal 1, PayloadRequest.all.count
   end
@@ -71,17 +62,8 @@ class ServerTest < Minitest::Test
 
   def test_post_to_client_responds_with_403_error
     client = Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    payload =  '{"url":"http://jumpstartlab.com/blog",
-              "requestedAt":"2013-02-16 21:38:28 -0700",
-              "respondedIn":37,
-              "referredBy":"http://jumpstartlab.com",
-              "requestType":"GET",
-              "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-              "resolutionWidth":"1920",
-              "resolutionHeight":"1280",
-              "ip":"63.29.38.211"}'
-    post "/sources/#{client.identifier}/data", { payload: payload }
-    post "/sources/#{client.identifier}/data", { payload: payload }
+    post "/sources/#{client.identifier}/data", { payload: json_payload }
+    post "/sources/#{client.identifier}/data", { payload: json_payload }
     assert_equal 403, last_response.status
     assert_equal "This is already entered", last_response.body
   end
@@ -104,16 +86,7 @@ class ServerTest < Minitest::Test
 
   def test_post_non_client_responds_with_403_error
     client = Client.create(identifier: "jumpstartlab", root_url: "http://jumpstartlab.com")
-    payload=  '{"url":"http://jumpstartlab.com/blog",
-              "requestedAt":"2013-02-16 21:38:28 -0700",
-              "respondedIn":37,
-              "referredBy":"http://jumpstartlab.com",
-              "requestType":"GET",
-              "userAgent":"Mozilla/5.0 (Macintosh%3B Intel Mac OS X 10_8_2) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1309.0 Safari/537.17",
-              "resolutionWidth":"1920",
-              "resolutionHeight":"1280",
-              "ip":"63.29.38.211"}'
-    post "/sources/google/data", { payload: payload }
+    post "/sources/google/data", { payload: json_payload }
     assert_equal 403, last_response.status
     assert_equal "Client doesn't exist.", last_response.body
   end
