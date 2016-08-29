@@ -7,8 +7,8 @@
 <p><b>Screen Resolution Report: </b><%= @client.payload_requests.get_screen_resolution_report(client_id: @client.id) %></p>
 
 
-<% @client.payload_requests.ordered_urls(client_id: @client.id).count.keys.each do |k| %>
- <a href="/sources/<%= @client.identifier %>/urls<%= k.gsub(@client.root_url, "") %>"> <%= k.gsub(@client.root_url, "") %></a>
+<% @client.payload_requests.ordered_url_paths(client_id: @client.id).each do |path| %>
+ <a href="/sources/<%= @client.identifier %>/urls<%= path.gsub(@client.root_url, "") %>"> <%= path.gsub(@client.root_url, "") %></a>
 <% end %>
 
 <%= breakdown_table(@client.payload_requests.os_breakdown(client_id: @client.id), "OS") %>

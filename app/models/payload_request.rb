@@ -49,39 +49,39 @@ class PayloadRequest < ActiveRecord::Base
     RequestType.joins(:payload_requests).group(:http_verb).order('count(*) DESC').count.keys.first
   end
 
-  def self.all_http_verbs_report
-    all_http_verbs.count.map { |verb, count| "#{verb}: #{count}" }
+  def self.all_http_verbs_report(params = {client_id: 1})
+    all_http_verbs(params).count.map { |verb, count| "#{verb}: #{count}" }
   end
 
-  def self.all_http_verbs(params = {client_id: 1})
+  def self.all_http_verbs(params)
     RequestType.joins(:payload_requests).where(payload_requests: params).group(:http_verb).order("count(*) DESC")
   end
 
-  def self.ordered_urls(params = {client_id: 1})
+  def self.ordered_urls(params)
     Url.joins(:payload_requests).where(payload_requests: params).group(:url_path).order("count(*) DESC")
   end
 
-  def self.ordered_url_paths
-    ordered_urls.count.keys
+  def self.ordered_url_paths(params = {client_id: 1})
+    ordered_urls(params).count.keys
   end
 
-  def self.browser_breakdown(params = {client_id: 1})
+  def self.browser_breakdown(params)
     Agent.joins(:payload_requests).where(payload_requests: params).group(:browser).order('count(*) DESC')
   end
 
-  def self.browser_breakdown_report
-    browser_breakdown.count.map { |browser, count| "#{browser}: #{count}" }
+  def self.browser_breakdown_report(params = {client_id: 1})
+    browser_breakdown(params).count.map { |browser, count| "#{browser}: #{count}" }
   end
 
-  def self.os_breakdown(params = {client_id: 1})
+  def self.os_breakdown(params)
     Agent.joins(:payload_requests).where(payload_requests: params).group(:os).order('count(*) DESC')
   end
 
-  def self.os_breakdown_report
-    os_breakdown.count.map { |os, count| "#{os}: #{count}" }
+  def self.os_breakdown_report(params = {client_id: 1})
+    os_breakdown(params).count.map { |os, count| "#{os}: #{count}" }
   end
 
-  def self.get_screen_resolution(params = {client_id: 1})
+  def self.get_screen_resolution(params)
     ScreenResolution.joins(:payload_requests).where(payload_requests: params).distinct.select(:width, :height)
   end
 

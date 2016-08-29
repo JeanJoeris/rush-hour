@@ -14,6 +14,10 @@ require 'rack/test'
 DatabaseCleaner.strategy = :truncation
 Capybara.app = RushHour::Server
 
+class FeatureTest < Minitest::Test
+  include Capybara::DSL
+end
+
 module TestHelpers
   include Rack::Test::Methods
   def app     # def app is something that Rack::Test is looking for
@@ -29,6 +33,7 @@ module TestHelpers
       PayloadRequest.create(arg)
     end
   end
+
 
   def get_payload_data
     {

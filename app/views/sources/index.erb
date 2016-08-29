@@ -3,5 +3,7 @@
 <% @clients.each do |client| %>
   <% if client.payload_requests.count > 0 %>
     <h3><%= link_to "sources/#{client.identifier}", client.identifier.capitalize%><br /></h3>
+  <% else %>
+    <h3><%= client.identifier.capitalize %></h3>
   <% end %>
 <% end %>
