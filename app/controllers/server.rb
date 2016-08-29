@@ -31,7 +31,6 @@ module RushHour
       @client = Client.find_by(identifier: params[:IDENTIFIER])
       full_path = @client.root_url + "/" + params['RELATIVEPATH']
       @url = @client.urls.find_by(url_path: full_path)
-      # require 'pry'; binding.pry
       if @url
         erb :"client/urls_view"
       else
